@@ -1,1 +1,2 @@
-# Sharpest-Minds-Project
+Sharpest-Minds-Project
+Add details 

@@ -1,3 +1,5 @@
+class data: 
+
 	import time
 	import selenium 
 	from selenium import webdriver
@@ -14,20 +16,20 @@
     		body.send_keys(Keys.PAGE_DOWN)
     		time.sleep(2.5)
     		main = wd.find_elements_by_class_name("rg_i.Q4LuWd")
-#wd.quit()
+		#wd.quit()
     		links = [main[i].get_attribute('src') for i in range(len(main))]
     		imagess = []
     		for image in links:
-    # making sure type of data is an image containing the string google encodes for an image
+    			# making sure type of data is an image containing the string google encodes for an image
         		if type(image) == str:
-        # checking conditional text so Image library can open based on based64 conversion
+        		# checking conditional text so Image library can open based on based64 conversion
         		if image[0:4] == 'data':
-            # replace text so we can open it
+            			# replace text so we can open it
                 		new = image.replace("data:image/jpeg;base64,","")
-            # adding equals at the end for decoding
+            			# adding equals at the end for decoding
                 		if new[-2:] != '==':
                     			new_edit = new + '=='
-                # image becomes Image object
+                			# image becomes Image object
                     			new_image = (Image.open(BytesIO(base64.b64decode(new_edit)))).resize((150,150))
                     			imagess.append(new_image)
                 		else:
@@ -37,7 +39,7 @@
                 	new = requests.get(image)
                 	new_image = Image.open(BytesIO(image.content))
                 	imagess.append(new_image)
-# creating directories, saving images, and creating names for images as jpeg files
+	# creating directories, saving images, and creating names for images as jpeg files
 	os.mkdir('Images')
 	os.mkdir('Images/regular')
 	index = 0 
@@ -45,5 +47,3 @@
 		i.save('Images/regular'+'/'+string(index)+'.jpeg')
 		index += 1
 
-
-#

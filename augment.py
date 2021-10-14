@@ -1,7 +1,7 @@
 from keras.image.preprocess import ImageDataGenerator
 import numpy as np
 
-# are there nay parameters I need to set in this function before I call it 
+# need to save training and testing data so model.py can access it   
 
 class Augment():
     

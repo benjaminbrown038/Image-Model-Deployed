@@ -1,4 +1,4 @@
-#Sharpest Minds Project
+# Sharpest Minds Project
 
 Data file contains code that accesses the web to collect along with saving these images
 

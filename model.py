@@ -40,5 +40,5 @@ class Model():
                   metrics=['accuracy'])
 
     # info for fit : data (training and testing),
-    model.fit(training_data, testing_data, epochs=100, verbose=2, )
+    model.fit(training_data, testing_data, epochs=100, verbose=2 )
 

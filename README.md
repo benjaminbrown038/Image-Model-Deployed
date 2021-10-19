@@ -9,24 +9,16 @@ Chromedrivers can be found at https://chromedriver.chromium.org/downloads. Pick 
 The steps to know your specific browser version:
 https://help.zenplanner.com/hc/en-us/articles/204253654-How-to-Find-Your-Internet-Browser-Version-Number-Google-Chrome.
 
-The ```augment.py``` file uses keras library and ```ImageDataGenerator``` function to create an object that will have augmented techniques. This object can be passed to another important function ```flow_from_directory``` which grabs all files from the designated folder. The training and testing data is then resaved as augmented images. I used
+The ```augment.py``` file uses keras library and ```ImageDataGenerator``` function to create an object that will have augmented techniques. This object can be passed to another important function ```flow_from_directory``` which grabs all files from the designated folder. The training and testing data is then resaved as augmented images.
 
 This is a power tutorial for this augmentation technique by Francois Chollet: https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html. 
 This is the tutorial I used for relevant information and steps for my application. 
 
 
+The ```model.py``` folder holds the model architecture for the CNN. Keras is used for the Sequential model along with imported functions Conv2d, MaxPool2D, and Flatten layers to create the model for prediction. 
 
-
-
-
-
-- Data file contains code that accesses the web to collect along with saving these images
-
-- Augment file contains code that will access this file to augment, with keras, the files in the folder
-
-- Model file will get these images and train my model with them
 
 
 Future work: 
 
-- Deploying model to cloud using AWS and lambda function
+- Deploying model and data to cloud using AWS and lambda function

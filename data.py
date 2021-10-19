@@ -12,24 +12,34 @@ import base64
 class Data():    
     
     def __init__(self,search_name):
+        # specific to user Desktop where chrome driver is downloaded
         DRIVER_PATH = '/home/trey/Sharpest-Minds-Project/chromedriver'
         self.wd = webdriver.Chrome(DRIVER_PATH)
+        # specific for requesting images
         search_url = "https://www.google.com/search?q={q}&sxsrf=ALeKk02zAb9RaNNb-qSenTEJh1i2XX480w:1613489053802&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjChJqP2-7uAhVyTTABHdX0CPoQ_AUoAXoECAcQAw&biw=767&bih=841"
         self.wd.get(search_url.format(q=search_name))
-  
+    
+    # get images links, remove noise, decode cleaned data, size and open image, save image, create folder, save images from search to folder 
     def scrape_and_save(self,search_name):
+        
         body = self.wd.find_element_by_tag_name("body")
+        # scrolling search page results
         body.send_keys(Keys.PAGE_DOWN)
         time.sleep(2.5)
+        # list of classes
         main = self.wd.find_elements_by_class_name("rg_i.Q4LuWd")
+        # getting image links (ASCII data communication) stored as base64 and http urls from img (html) tag with src holding the path (url)
         links = [main[i].get_attribute('src') for i in range(len(main))]
+        # shut down web page 
         self.wd.quit()
         images = []
+        #
         for image in links:
+            # going through image links which stored as strings
             if type(image) == str:
-                # checking conditional text so Image library can open based on based64 conversion
+                # checking base64 text 
                 if image[0:4] == 'data':
-                    # replace text so we can open it
+                    # remove noise (cleaning data)
                     new = image.replace("data:image/jpeg;base64,","")
                     # adding equals at the end for decoding
                     if new[-2:] != '==':

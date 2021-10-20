@@ -41,7 +41,7 @@ class Augment():
         # .flow_from_directory function in ImageDataGenerator class to augment, set image size, batch_size, classification type
         # creating training data from .flow_from_directory    
         # grabbing images from testing folder of each class and augmenting
-        self.testing_data = test_datagen.flow_from_directory('/Images/test' + search_name,
+        self.testing_data = test_datagen.flow_from_directory('/Images/Data/test' + search_name,
                                                         target_size = (150,150),
                                                         batch_size=32,
                                                         class_mode = 'binary')

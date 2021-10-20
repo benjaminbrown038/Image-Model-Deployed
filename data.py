@@ -75,12 +75,15 @@ class Data():
                     # save to list 
                     images.append(new_image)
         # creating directories for training and testing 
+        # data is saved to the folder that is created according to each instance of Data, exist_ok True for multiple instances of Data
         os.makedirs('Images/', exist_ok=True)
-        os.makedirs('Images/training', exist_ok=True)
-        os.makedirs('Images/testing', exist_ok=True)
+        # exists_ok True if same search_name is ran more than once, the folder will stay
+        os.makedirs('Images/'+ search_name, exist_ok=True)
         index = 0 
         # iterating through list where images are saved and saving images as jpeg to just created directories
-        split_folders.ratio('Images', output="output", seed=1337, ratio=(.8, 0.1,0.1)) 
+        #split_folders.ratio('Images', output="output", seed=1337, ratio=((.8, 0.2))) 
+        index = 0 
         for i in images:
-            i.save('Images/'+ search_name + str(index) +'.jpeg')
-            index += 1 
+            # saving images according to search_name in search_name directory
+            i.save('Images/'+ search_name + '/' + str(index) + '.jpeg')
+            index += 1

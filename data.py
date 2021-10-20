@@ -1,3 +1,5 @@
+# for splitting data up into folder of train,test,val
+import split_folders
 # pause after scrolling results page 
 import time 
 # for accessing web 
@@ -78,6 +80,7 @@ class Data():
         os.makedirs('Images/testing', exist_ok=True)
         index = 0 
         # iterating through list where images are saved and saving images as jpeg to just created directories
+        split_folders.ratio('Images', output="output", seed=1337, ratio=(.8, 0.1,0.1)) 
         for i in images:
-            i.save('Images/training'+'/'+ search_name + str(index) +'.jpeg')
+            i.save('Images/'+ search_name + str(index) +'.jpeg')
             index += 1 

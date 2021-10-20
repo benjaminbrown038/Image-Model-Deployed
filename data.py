@@ -25,7 +25,8 @@ class Data():
     # initializer for class with input search name 
     def __init__(self,search_name):
         # specific to user Desktop where chrome driver is downloaded
-        DRIVER_PATH = '/home/trey/Sharpest-Minds-Project/chromedriver'
+        PATH = os.getcwd()
+        DRIVER_PATH = PATH + 'chromedriver'
         self.wd = webdriver.Chrome(DRIVER_PATH)
         # specific for requesting images
         search_url = "https://www.google.com/search?q={q}&sxsrf=ALeKk02zAb9RaNNb-qSenTEJh1i2XX480w:1613489053802&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjChJqP2-7uAhVyTTABHdX0CPoQ_AUoAXoECAcQAw&biw=767&bih=841"

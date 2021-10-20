@@ -2,15 +2,19 @@
 from keras.image.preprocess import ImageDataGenerator
 # for cleaning data 
 import numpy as np
+# for creating train and test folders for each class
+import split_folders
 
 # need to save training and testing data so model.py can access it   
 
 # create Augment class 
 class Augment():
-    
-    def aug(self):
+
+    def __init__(self,search_name):
+        split_folders.ratio('Images', output="Data", seed=1337, ratio=((.8, 0.2)))
+        
         # augmentation techniques for training data stored as an ImageDataGenerator object
-        training_data = ImageDataGenerator(rotation_range=40,
+        self.training_data = ImageDataGenerator(rotation_range=40,
             width_shift_range=0.2,
             height_shift_range=0.2,
             rescale=1./255,
@@ -20,20 +24,24 @@ class Augment():
             fill_mode='nearest')
         
         # augmentation techniques for testing data stored as an ImageDataGenerator object
-        testing_data = ImageDataGenerator(scale_width = 1/255)
+        self.testing_data = ImageDataGenerator(
+            scale_width = 1/255)
         
+    def aug(self,search_name):        
         # using ImageDataGenerator object's functionality to access training images and augment images in folder 
-                # .flow_from_directory function in ImageDataGenerator class to augment, set image size, batch_size, classification type
-                    # creating training data from .flow_from_directory
-        training_data = train_datagen.flow_from_directory('/Images/training',
+        # .flow_from_directory function in ImageDataGenerator class to augment, set image size, batch_size, classification type
+        # creating training data from .flow_from_directory
+        # grabbing images from training folder of each class and augmenting
+        self.training_data = train_datagen.flow_from_directory('/Images/Data/train' + search_name,
                                                           target_size = (150,150),
                                                           batch_size = 32,
                                                           class_mode = 'binary')
         
-         # using ImageDataGenerator object's functionality to access training images and augment images in folder 
-                # .flow_from_directory function in ImageDataGenerator class to augment, set image size, batch_size, classification type
-                    # creating training data from .flow_from_directory        
-        testing_data = test_datagen.flow_from_directory('/Images/testing',
+        # using ImageDataGenerator object's functionality to access training images and augment images in folder 
+        # .flow_from_directory function in ImageDataGenerator class to augment, set image size, batch_size, classification type
+        # creating training data from .flow_from_directory    
+        # grabbing images from testing folder of each class and augmenting
+        self.testing_data = test_datagen.flow_from_directory('/Images/test' + search_name,
                                                         target_size = (150,150),
                                                         batch_size=32,
                                                         class_mode = 'binary')

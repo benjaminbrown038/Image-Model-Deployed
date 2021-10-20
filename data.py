@@ -1,5 +1,3 @@
-# for splitting data up into folder of train,test,val
-import split_folders
 # pause after scrolling results page 
 import time 
 # for accessing web 

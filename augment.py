@@ -47,19 +47,19 @@ class Augment():
                                                         class_mode = 'binary')
         
         # x training data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
-        x_train = training_data[0][0]
+        x_train = self.training_data[0][0]
         # training data split from 0 to 1 for activation functions
         x_train /= 255
         # change shape (add axis) to x training for model 
-        x_train = np.rollaxis(x_train,3,1)
+        x_train = np.rollaxis(self.x_train,3,1)
         # y training data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
-        y_train = training_data[0][1]
+        y_train = self.training_data[0][1]
         
         # x testing data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
-        x_test = testing_data[0][0]
+        x_test = self.testing_data[0][0]
         # scale values in tx testing from 0 to 1 for activation functions in model 
         x_test /= 255
         # change shape (add axis) to x testing data for model 
-        x_test = np.rollaxis(x_test,3,1)
+        x_test = np.rollaxis(self.x_test,3,1)
         # y testing data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
-        y_test = testing_data[0][1]
+        y_test = self.testing_data[0][1]

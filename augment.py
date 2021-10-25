@@ -51,12 +51,14 @@ returns:
 '''
 
         # grabbing images from training folder of each class and augmenting
+    
         self.training_data = training.flow_from_directory('/Images/Data/train' + search_name,
                                                           target_size = (150,150),
                                                           batch_size = 32,
                                                           class_mode = 'binary')
         
-
+        # endup creating batch size to the number of images in the folder 
+        
         self.testing_data = testing.flow_from_directory('/Images/Data/test' + search_name,
                                                         target_size = (150,150),
                                                         batch_size=32,

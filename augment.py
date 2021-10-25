@@ -63,7 +63,7 @@ returns:
                                                         class_mode = 'binary')
         
   '''
-accessing examples from (training) data, scaling image data from 0 to 1, creating a dimension on image data, accessing labels (training)  
+accessing examples from (training) data, scaling image data 0 to 1, creating a dimension on image data, accessing labels (training)  
 
 parameters: 
 
@@ -85,7 +85,7 @@ returns: training images and training labels
    
 
   '''
-accessing examples from (testing) data, scaling image data from 0 to 1, creating a dimension on image data, accessing labels (testing)  
+accessing examples from (testing) data, scaling image data 0 to 1, creating a dimension on image data, accessing labels (testing)  
 
 parameters: 
 

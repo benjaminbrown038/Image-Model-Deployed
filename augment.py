@@ -11,10 +11,20 @@ import split_folders
 class Augment():
 
     def __init__(self,search_name):
-        split_folders.ratio('Images', output="Data", seed=1337, ratio=((.8, 0.2)))
+        
+'''
+    Using ImageDataGenerator object's functionality to access training and testing images to augment images in folder 
+parameters:
+    search_name: <string> this will be the class of the picture.
+returns:
+    training_data: an instance of augmented images (training) of search_name 
+    testing_data: an instance of augmented images (testing) of search_name
+'''
+
+        split_folders.ratio('Images', output="Data", seed=1337, ratio=((0.8, 0.2)))
         
         # augmentation techniques for training data stored as an ImageDataGenerator object
-        self.training_data = ImageDataGenerator(rotation_range=40,
+        self.training = ImageDataGenerator(rotation_range=40,
             width_shift_range=0.2,
             height_shift_range=0.2,
             rescale=1./255,
@@ -24,27 +34,42 @@ class Augment():
             fill_mode='nearest')
         
         # augmentation techniques for testing data stored as an ImageDataGenerator object
-        self.testing_data = ImageDataGenerator(
+        self.testing = ImageDataGenerator(
             scale_width = 1/255)
         
-    def aug(self,search_name):        
-        # using ImageDataGenerator object's functionality to access training images and augment images in folder 
-        # .flow_from_directory function in ImageDataGenerator class to augment, set image size, batch_size, classification type
-        # creating training data from .flow_from_directory
+    def aug(self,search_name):  
+        
+'''
+functions:
+    flow_from_directory: function in ImageDataGenerator class to augment, set image size, batch_size, classification type
+    creating training_data from 
+parameters:
+    search_name: <string> this will be the class of the picture and label the image for classification 
+returns:
+    training_data: objected containing training data (x and y) 
+    testing_data: object containing testing data (x and y) 
+'''
+
         # grabbing images from training folder of each class and augmenting
-        self.training_data = train_datagen.flow_from_directory('/Images/Data/train' + search_name,
+        self.training_data = training.flow_from_directory('/Images/Data/train' + search_name,
                                                           target_size = (150,150),
                                                           batch_size = 32,
                                                           class_mode = 'binary')
         
-        # using ImageDataGenerator object's functionality to access training images and augment images in folder 
-        # .flow_from_directory function in ImageDataGenerator class to augment, set image size, batch_size, classification type
-        # creating training data from .flow_from_directory    
-        # grabbing images from testing folder of each class and augmenting
-        self.testing_data = test_datagen.flow_from_directory('/Images/Data/test' + search_name,
+
+        self.testing_data = testing.flow_from_directory('/Images/Data/test' + search_name,
                                                         target_size = (150,150),
                                                         batch_size=32,
                                                         class_mode = 'binary')
+        
+  '''
+accessing examples from (training) data, scaling image data from 0 to 1, creating a dimension on image data, accessing labels (training)  
+
+parameters: 
+
+returns: training images and training labels
+
+'''
         
         # x training data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
         x_train = self.training_data[0][0]
@@ -55,6 +80,18 @@ class Augment():
         # y training data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
         y_train = self.training_data[0][1]
         
+        return x_train
+        return y_train
+   
+
+  '''
+accessing examples from (testing) data, scaling image data from 0 to 1, creating a dimension on image data, accessing labels (testing)  
+
+parameters: 
+
+returns: testing images and testing labels
+
+'''
         # x testing data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
         x_test = self.testing_data[0][0]
         # scale values in tx testing from 0 to 1 for activation functions in model 
@@ -63,3 +100,7 @@ class Augment():
         x_test = np.rollaxis(self.x_test,3,1)
         # y testing data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
         y_test = self.testing_data[0][1]
+        
+        return x_test
+        return y_test
+        

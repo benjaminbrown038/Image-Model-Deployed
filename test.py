@@ -1,6 +1,5 @@
 '''
 how to document imports
-
 '''
 # pause after scrolling results page
 import time
@@ -23,11 +22,13 @@ import io
 # decoding
 import base64
 search_name = 'dogs'
-
 # specific to user Desktop where chrome driver is downloaded
-PATH = os.getcwd()
-DRIVER_PATH = PATH + '//chromedriver'
-wd = webdriver.Chrome()
+#PATH = os.getcwd()
+PATH = "C:\\Users\\BenBrown\\Sharpest-Minds-Project\\chromedriver.exe"
+#DRIVER_PATH = PATH + '\chromedriver'
+#options = webdriver.ChromeOptions()
+#options.add_argument('--disable-extensions')
+wd = webdriver.Chrome(executable_path=PATH)
 # specific for requesting images
 search_url = "https://www.google.com/search?q={q}&sxsrf=ALeKk02zAb9RaNNb-qSenTEJh1i2XX480w:1613489053802&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjChJqP2-7uAhVyTTABHdX0CPoQ_AUoAXoECAcQAw&biw=767&bih=841"
 wd.get(search_url.format(q=search_name))

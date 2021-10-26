@@ -1,6 +1,5 @@
 '''
 how to document imports
-
 '''
 # pause after scrolling results page
 import time
@@ -22,18 +21,14 @@ from PIL import Image
 import io
 # decoding
 import base64
-
 # create class called Data
 class Data():
-
 '''
     Using Selenium chromedriver in local directory will fetch google images based on parameter search_name
 parameters:
     search_name: <string> will be the search query for google images
 returns:
-
 '''
-
     # initializer for class with input search name
     def __init__(self,search_name):
         # specific to user Desktop where chrome driver is downloaded
@@ -49,7 +44,6 @@ returns:
 parameters:
     search_name: <string> will be used for the creation of folders and naming and saving of files within that folder
 returns:
-
 '''
 
     # get images links, remove noise, decode cleaned data, size and open image, save image, create folder, save images from search to folder

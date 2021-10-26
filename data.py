@@ -43,6 +43,7 @@ returns:
         # specific for requesting images
         search_url = "https://www.google.com/search?q={q}&sxsrf=ALeKk02zAb9RaNNb-qSenTEJh1i2XX480w:1613489053802&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjChJqP2-7uAhVyTTABHdX0CPoQ_AUoAXoECAcQAw&biw=767&bih=841"
         self.wd.get(search_url.format(q=search_name))
+
 '''
     Using webpage results of google images based on search_name, the webpage is scraped for the image data and saved locally
 parameters:
@@ -50,6 +51,7 @@ parameters:
 returns:
 
 '''
+
     # get images links, remove noise, decode cleaned data, size and open image, save image, create folder, save images from search to folder
     def scrape_and_save(self,search_name):
 

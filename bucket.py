@@ -21,6 +21,7 @@ def __init__(self,search_name):
     session = boto3.Session(aws_access_key_id=aws_access_key_id,
     aws_secret_access_key=aws_secret_access_key)
 
+
     for filename in os.listdir(directory):
         object = s3.Object('sharpest-minds-bucket123-ben', filename)
         #  open image as image,

@@ -21,6 +21,9 @@ from PIL import Image
 import io
 # decoding
 import base64
+import webdriver_manager
+from webdriver_manager import chrome
+from webdriver_manager.chrome import ChromeDriverManager
 # create class called Data
 class Data():
 '''
@@ -32,9 +35,7 @@ returns:
     # initializer for class with input search name
     def __init__(self,search_name):
         # specific to user Desktop where chrome driver is downloaded
-        PATH = os.getcwd()
-        DRIVER_PATH = PATH + 'chromedriver'
-        self.wd = webdriver.Chrome(DRIVER_PATH)
+        self.wd = webdriver.Chrome(ChromeDriverManager().install())
         # specific for requesting images
         search_url = "https://www.google.com/search?q={q}&sxsrf=ALeKk02zAb9RaNNb-qSenTEJh1i2XX480w:1613489053802&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjChJqP2-7uAhVyTTABHdX0CPoQ_AUoAXoECAcQAw&biw=767&bih=841"
         self.wd.get(search_url.format(q=search_name))
@@ -49,14 +50,17 @@ returns:
     # get images links, remove noise, decode cleaned data, size and open image, save image, create folder, save images from search to folder
     def scrape_and_save(self,search_name):
 
-        body = self.wd.find_element_by_tag_name("body")
+        body = wd.find_element(By.TAG_NAME,"body")
         # scrolling search page results
-        body.send_keys(Keys.PAGE_DOWN)
-        time.sleep(2.5)
+        for i in range(60):
+            body.send_keys(Keys.PAGE_DOWN)
+            time.sleep(.3)
         # list of classes
-        main = self.wd.find_elements_by_class_name("rg_i.Q4LuWd")
+        main = wd.find_elements(By.CLASS_NAME,"rg_i.Q4LuWd")
         # getting image links (ASCII data communication) stored as base64 and http urls from img (html) tag with src holding the path (url)
+        #print(type(main))
         links = [main[i].get_attribute('src') for i in range(len(main))]
+
         # shut down web page
         self.wd.quit()
         images = []
@@ -100,3 +104,6 @@ returns:
             # saving images according to search_name in search_name directory
             i.save('Images/'+ search_name + '/' + str(index) + '.jpeg')
             index += 1
+
+    if __name__ == "__main__":
+    

@@ -37,6 +37,7 @@ Adding files to bucket
 creating client for
 '''
 # client
+
 runtime = boto3.client('runtime.sagemaker')
 response = runtime.invoke_endpoint(EndpointName=linear_endpoint,# LAMBDA EVENT
                                    ContentType='text/csv',

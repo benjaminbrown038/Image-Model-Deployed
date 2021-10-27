@@ -25,7 +25,7 @@ import webdriver_manager
 from webdriver_manager import chrome
 from webdriver_manager.chrome import ChromeDriverManager
 # create class called Data
-class Data():
+class Data:
 '''
     Using Selenium chromedriver in local directory will fetch google images based on parameter search_name
 parameters:
@@ -106,4 +106,3 @@ returns:
             index += 1
 
     if __name__ == "__main__":
-    

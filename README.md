@@ -9,7 +9,7 @@ Chromedrivers can be found at https://chromedriver.chromium.org/downloads. Pick 
 The steps to know your specific browser version:
 https://help.zenplanner.com/hc/en-us/articles/204253654-How-to-Find-Your-Internet-Browser-Version-Number-Google-Chrome.
 
-The ```augment.py``` file uses keras library and ```ImageDataGenerator``` function to create an object that will have augmented techniques. This object can be passed to another important function ```flow_from_directory``` which grabs all files from the designated folder. The training and testing data is then resaved as augmented images.
+The ```augment.py``` file uses keras library and ```ImageDataGenerator``` function to create an object that will have augmented techniques. This object can be passed to another important function ```.flow_from_directory``` which grabs all files from the designated folder. The training and testing data is then resaved as augmented images.
 
 This is a power tutorial for this augmentation technique by Francois Chollet: https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html.
 This is the tutorial I used for relevant information and steps for my application.

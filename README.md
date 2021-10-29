@@ -1,5 +1,7 @@
 # Sharpest Minds Project
 
+# Find good tutorial for image classification of model (asking right questions)
+
 This is a personal project that I have been working on to integrate some data collection other than traditional datasets provided by machine learning libraries.
 
 It is recommended to work within the anaconda framework with these tools.
@@ -27,7 +29,11 @@ The ```augment.py``` file uses keras library and ```ImageDataGenerator``` functi
 This is a power tutorial for this augmentation technique by Francois Chollet: https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html.
 This is the tutorial I used for relevant information and steps for my application.
 
-
+The top image classification models that can be used for Pre-Trained Models
+- VGG-16
+- ResNet50
+- Inceptionv3
+- EfficientNet
 The ```model.py``` folder holds the model architecture for the CNN. Keras is used for the Sequential model along with imported functions Conv2d, MaxPool2D, and Flatten layers to create the model for prediction.
 
 The ```bucket.py``` folder requires the user to navigate to the aws website and create a login. Then using the login, create an access key and a secret key. The website will prompt a .csv to pop up with these values stored. Open the file and change format of values to be in rows and column. Please see this tutorial:https://realpython.com/python-csv/. So the values are stored using commas as:

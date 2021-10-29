@@ -54,7 +54,7 @@ returns:
         # scrolling search page results
         for i in range(60):
             body.send_keys(Keys.PAGE_DOWN)
-            time.sleep(.3)
+            time.sleep(.75)
         # list of classes
         main = wd.find_elements(By.CLASS_NAME,"rg_i.Q4LuWd")
         # getting image links (ASCII data communication) stored as base64 and http urls from img (html) tag with src holding the path (url)
@@ -76,12 +76,12 @@ returns:
                     if new[-2:] != '==':
                         new_edit = new + '=='
                         # image becomes Image object
-                        new_image = (Image.open(io.BytesIO(base64.b64decode(new_edit)))).resize((150,150))
+                        new_image = (((Image.open(io.BytesIO(base64.b64decode(new_edit)))).resize((150,150))).convert("RGB"))
                         # append image to list
                         images.append(new_image)
                     else:
                         # open image as Image object
-                        new_image = (Image.open(io.BytesIO(base64.b64decode(new)))).resize((150,150))
+                        new_image = ((Image.open(io.BytesIO(base64.b64decode(new)))).resize((150,150)).convert("RGB"))
                         # append image to list
                         images.append(new_image)
                 if image[0:4] == 'http':

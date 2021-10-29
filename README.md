@@ -2,7 +2,20 @@
 
 This is a personal project that I have been working on to integrate some data collection other than traditional datasets provided by machine learning libraries.
 
-The ```data.py``` file will gather images from Google of the user's choosing. Next, removing unnecessary information from the string retreived from Google and decoding the string retreived from Google search. It will then create training and testing folders and store the final result (.jpeg) in the folder. Must install chrome driver in order to run selenium with chrome webdriver.
+It is recommended to work within the anaconda framework with these tools.
+
+Install anaconda using this link: https://www.anaconda.com/products/individual.
+
+After installing, install the version of python that we will be using in this demo.
+
+Next, create the virtual environment with anaconda and the version of python that was downloaded (python3.8).
+
+Next, use the ``` git clone``` command to clone the project locally. Once cloned, create a virtual environment using anaconda.
+The ```conda create -n envname python=3.8 anaconda ``` command will accomplish this, with 'envname' being anything of the user's choosing.
+
+Once the environment is created, next we need to activate it using ```conda activate envname``` .
+
+The ```data.py``` file will gather images from Google of the user's choosing. Next, removing unnecessary information from the string retrieved from Google and decoding the string retrieved from Google search. It will then create training and testing folders and store the final result (.jpeg) in the folder. Must install chrome driver in order to run selenium with chrome webdriver.
 
 Chromedrivers can be found at https://chromedriver.chromium.org/downloads. Pick the version that supports your chrome browser version.
 

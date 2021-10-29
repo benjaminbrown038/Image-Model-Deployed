@@ -24,7 +24,7 @@ import base64
 search_name = 'dogs'
 # specific to user Desktop where chrome driver is downloaded
 #PATH = os.getcwd()
-PATH = "C:\\Users\\BenBrown\\Sharpest-Minds-Project\\chromedriver.exe"
+
 #DRIVER_PATH = PATH + '\chromedriver'
 #options = webdriver.ChromeOptions()
 #options.add_argument('--disable-extensions')
@@ -57,3 +57,41 @@ main = wd.find_elements(By.CLASS_NAME,"rg_i.Q4LuWd")
 links = [main[i].get_attribute('src') for i in range(len(main))]
 # shut down web page
 #wd.quit()
+images = []
+for image in links:
+    # going through image links which stored as strings
+    if type(image) == str:
+        # checking base64 text
+        if image[0:4] == 'data':
+            # remove noise (cleaning data)
+            new = image.replace("data:image/jpeg;base64,","")
+            # adding equals at the end for decoding
+            if new[-2:] != '==':
+                new_edit = new + '=='
+                # image becomes Image object
+                new_image = (((Image.open(io.BytesIO(base64.b64decode(new_edit)))).resize((150,150))).convert("RGB"))
+                # append image to list
+                images.append(new_image)
+            else:
+                # open image as Image object
+                new_image = ((Image.open(io.BytesIO(base64.b64decode(new)))).resize((150,150)).convert("RGB"))
+                # append image to list
+                images.append(new_image)
+        if image[0:4] == 'http':
+            # http url from web results
+            new = requests.get(image)
+            # decode and create image as Image object
+            new_image = Image.open(io.BytesIO(new.content))
+            # save to list
+            images.append(new_image)
+os.makedirs('Images/', exist_ok=True)
+# exists_ok True if same search_name is ran more than once, the folder will stay
+os.makedirs('Images/'+ search_name, exist_ok=True)
+index = 0
+# iterating through list where images are saved and saving images as jpeg to just created directories
+#split_folders.ratio('Images', output="output", seed=1337, ratio=((.8, 0.2)))
+#index = 0
+for i in images:
+    # saving images according to search_name in search_name directory
+    i.save('Images/'+ search_name + '/' + str(index) + '.jpeg')
+    index += 1

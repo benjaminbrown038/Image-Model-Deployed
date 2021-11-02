@@ -42,7 +42,7 @@ row1name(access_key_value),row2name(secret_key_value)
 
 
 Future work:
-- Deploying model and data to cloud using AWS and lambda function
+- Integrating files to depend on each other
+- Deploying model and data to cloud using AWS and lambda function (Find a couple of reliable tutorials)
 - Running application from terminal using ```python data.py``` while passing classes as parameters
-- Directions for implementing virtual environment for this application
 - Project requires downloading AWS access and secret key in a .csv file and saved in the project directory

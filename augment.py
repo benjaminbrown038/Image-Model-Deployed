@@ -5,12 +5,16 @@ import numpy as np
 # for creating train and test folders for each class
 import split_folders
 import os
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow.keras.preprocessing import image
+#%matplotlib inline
 
 # need to save training and testing data so model.py can access it
 
 # create Augment class
 class Augment():
-
     def __init__(self,search_name):
 
 '''
@@ -37,75 +41,37 @@ returns:
         # augmentation techniques for testing data stored as an ImageDataGenerator object
         self.testing = ImageDataGenerator(
             scale_width = 1/255)
-
-    def aug(self,search_name):
-
-'''
-functions:
-    flow_from_directory: function in ImageDataGenerator class to augment, set image size, batch_size, classification type
-    creating training_data from
-parameters:
-    search_name: <string> this will be the class of the picture and label the image for classification
-returns:
-    training_data: objected containing training data (x and y)
-    testing_data: object containing testing data (x and y)
-'''
-
-        # grabbing images from training folder of each class and augmenting
-        training_directory = '/Images/Data/train/' + search_name + '/'
-        training_batch_size = len(os.listdir(training_directory))
-        self.training_data = training.flow_from_directory('/Images/Data/train/' + search_name,
-                                                          target_size = (150,150),
-                                                          batch_size = training_batch_size,
-                                                          shuffle = False,
-                                                          class_mode = 'binary')
-
-        # endup creating batch size to the number of images in the folder
-        testing_batch_size = len(os.listdir(testing_directory))
-        self.testing_data = testing.flow_from_directory('/Images/Data/test/' + search_name,
-                                                        target_size = (150,150),
-                                                        batch_size= testing_batch_size,
-                                                        shuffle = False,
-                                                        class_mode = 'binary')
-
-  '''
-accessing examples from (training) data, scaling image data 0 to 1, creating a dimension on image data, accessing labels (training)
-
-parameters:
-
-returns: training images and training labels
-
-'''
-
-        # x training data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
-        x_train = self.training_data[0][0]
-        # training data split from 0 to 1 for activation functions
-        x_train /= 255
-        # change shape (add axis) to x training for model
-        x_train = np.rollaxis(x_train,3,1)
-        # y training data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
-        y_train = self.training_data[0][1]
-
-        return x_train
-        return y_train
+        # data will be in "/Images/Data/class/index.jpg"
 
 
-'''
-accessing examples from (testing) data, scaling image data 0 to 1, creating a dimension on image data, accessing labels (testing)
+    def training_exploration(folder_path):
+        train_dir = folder_path # image folder
 
-parameters:
+        # get the list of jpegs from sub image class folders
+        normal_imgs = [fn for fn in os.listdir(f'{train_dir}/NORMAL') if fn.endswith('.jpeg')]
+        pneumo_imgs = [fn for fn in os.listdir(f'{train_dir}/PNEUMONIA') if fn.endswith('.jpeg')]
 
-returns: testing images and testing labels
+        # randomly select 3 of each
+        select_norm = np.random.choice(normal_imgs, 3, replace = False)
+        select_pneu = np.random.choice(pneumo_imgs, 3, replace = False)
 
-'''
-        # x testing data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
-        x_test = self.testing_data[0][0]
-        # scale values in tx testing from 0 to 1 for activation functions in model
-        x_test /= 255
-        # change shape (add axis) to x testing data for model
-        x_test = np.rollaxis(x_test,3,1)
-        # y testing data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
-        y_test = self.testing_data[0][1]
+        # plotting 2 x 3 image matrix
+        fig = plt.figure(figsize = (8,6))
+        for i in range(6):
+            if i < 3:
+                fp = f'{train_dir}/NORMAL/{select_norm[i]}'
+                label = 'NORMAL'
+            else:
+                fp = f'{train_dir}/PNEUMONIA/{select_pneu[i-3]}'
+                label = 'PNEUMONIA'
+                ax = fig.add_subplot(2, 3, i+1)
 
-        return x_test
-        return y_test
+        # to plot without rescaling, remove target_size
+        fn = image.load_img(fp, target_size = (100,100), color_mode='grayscale')
+        plt.imshow(fn, cmap='Greys_r')
+        plt.title(label)
+        plt.axis('off')
+        plt.show()
+
+        # also check the number of files here
+        len(normal_imgs), len(pneumo_imgs)

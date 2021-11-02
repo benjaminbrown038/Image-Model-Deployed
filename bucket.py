@@ -1,12 +1,13 @@
 import boto3
 import os
 import pandas as pd
+
 '''
     Using Amazon's API via sagemaker and boto3 to create a bucket and add content
-parameters:
-    search_name: <string> class name of image
+parameters: search_name: <string> class name of image
 returns: end point for model and data
 '''
+
 def __init__(self,search_name):
     # run all file from same directory
     # there for directory where images will be will  be same
@@ -15,14 +16,24 @@ def __init__(self,search_name):
     secret = pd.read_csv('rootkey.csv')
     aws_access_key_id = secret['AWSAccessKeyId']
     aws_secret_access_key = secret['AWSSecretKey']
+
 '''
-creating Session for bucket
+Creating Session for bucket:
+    Access Key
+    Secret Key
 '''
+
     session = self.boto3.Session(aws_access_key_id=aws_access_key_id,
     aws_secret_access_key=aws_secret_access_key)
+
 '''
-Adding files to bucket
+Adding files to bucket:
+    Bucket was created on AWS main page
+    Open image in file
+    Convert image into bytes
+    Add data into bucket (in byte format)
 '''
+
     for filename in os.listdir(directory):
         object = s3.Object('sharpest-minds-bucket123-ben', filename)
         #  open image as image,

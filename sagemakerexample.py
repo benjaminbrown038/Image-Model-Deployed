@@ -390,4 +390,186 @@ for iter_id in consolidated_nims.keys():
     plt.bar(iter_id,auto_nims[iter_id], color = 'C1', width = .4, label='ims,auto'if iter_id ==1 else None)
     plt.bar(iter_id,consolidated_nims[iter_id], color = 'C0',width = .4, label = 'ims,human', if iter_id == 1 else None)
     plt.bar(iter_id + .4, auto_nboxes[iter_id], color = 'C1', alpha = .4, width = .4, label = 'boxes,auto' if iter_id==1 else None)
-    plt.bar(iter_id + .4, consolidated_nboxes)
+    plt.bar(iter_id + .4, consolidated_nboxes[iter_id], bottom=auto_nboxes[iter_id], color = 'C0', width=.4,alpha=.4,label='boxes,human' if iter_id ==1 else None)
+
+tick_labels_boxes = ['Iter {}, boxes'.format(iter_id + 1) for iter_id in range(n_iters)]
+tick_labels_images = ['Iter {}, boxes'.format(iter_id + 1) for iter_id in range(n_iters)]
+tick_locations_images = np.arange(n_iters) + 1
+tick_location_boxes = tick_locations_images + .4
+tick_labels = np.concatenate([[tick_labels_boxes[idx],tick_labels_images[idx]] for idx in range(n_iters)])
+tick_locations = np.concatenate([[tick_location_boxes[idx],tick_locations_images[idx]] for idx in range(n_iters)])
+plt.xticks(tick_locations,tick_labels,rotation=90)
+plt.legend()
+plt.ylabel('Count')
+
+if len(training_sizes) > 0:
+    plt.subplot(133)
+    plt.title('Active learning training curve')
+    plt.grid(True)
+
+    cmap = plt.get_map('coolwarm')
+    n_all = len(training_sizes)
+    for iter_id_id, (iter_id,size,mAPs) in enumerate(zip(training_iters,training_sizes,training_mAPs)):
+        plt.plot(mAPs,label = 'Iter {}, auto'.format(iter_id + 1), color = cmap(iter_id_id/max(1,n_all-1)))
+        plt.legend()
+    plt.xlabel('Training epoch')
+    plt.ylabel('Validation mAP')
+plt.tight_layout()
+
+sagemaker_client.describe_labeling_job(LabelingJobName=job_name)["LabelingJobStatus"]
+OUTPUT_MANIFEST = "s3://{}/{}/output/{}/manifests/output/output.manifest".format(BUCKET,EXP_NAME,job_name)
+!aws s3 cp {OUTPUT_MANIFEST} 'output.manifest'
+
+with open("output.manifest","r") as f:
+    output = [json.loads(line.strip()) for line in f.readlines()]
+
+!aws s3 cp {S3_OUTPUT + '/annotations/worker-response'} od_output_data/worker-response --recursive --quiet
+
+worker_file_names = glob.glob("od_output_data/worker-response/**/*.json", recursive=True)
+
+from ground_truth_od import BoundingBox, WorkerBoundingBox, GroundTruthBox, BoxedImage
+
+confidences = np.zeros(len(output))
+
+keys = list(output[0].keys())
+metakey = key[np.where([("-metadata" in k) for k in keys])[0][0]]
+jobname = metakey[:-9]
+output_images = []
+consolidated_boxes = []
+
+for datum_id, datum in enumerate(output):
+    image_size = date["category"]["image_size"][0]
+    box_annotations = datum["category"]["annotations"]
+    uri = datum["source-ref"]
+    box_confidences = datum[metakey]["objects"]
+    human = int(datum[metakey]["human-annotated"] == "yes")
+
+    image = BoxedImage(id=datum_id,size = image_size,uri=uri)
+    boxes = []
+    for i, annotation in enumerate(box_annotations):
+        box = BoundingBox(image_id=datum_id,boxdata=annotation)
+        box.confidence = box_confidences[i]["confidence"]
+        box.image = image
+        box.human = human
+        boxes.append(box)
+        consolidated_boxes.append(box)
+    image.consolidated_boxes = boxes
+
+    image.human = human
+    oid_boxes_data = fids2bbs[image.oid_oi]
+    gt_boxes = []
+    for data in oid_boxes_data:
+        gt_box = GroundTruthBox(image_id=datum_id,oiddata=data, image = image)
+        gt_boxes.append(gt_box)
+    image.gt_boxes = gt_boxes
+
+    output_images.append(image)
+
+for wfn in worker_file_names:
+    image_id = int(wfn.split("/")[-2])
+    image = output_images[image_id]
+    with open(wfn,"r") as worker_file:
+        annotation = json.load(worker_file)
+        answers = annotation["answers"]
+        for answer in answers:
+            wid=answer["workerId"]
+            wdboxes_data = answer["answerContent"]["boundingBox"]["boundingBoxes"]
+            for boxdata in wboxes_data or []:
+                box = WorkerBoundingBox(image_id=image_id,worker_id=wid,boxdata = boxdata)
+                box.image = image
+                image.worker_boxes.append(box)
+human_labeled = [img for img in output_images if img.human]
+auto_labeled = [img for img in output_images if not img.human]
+
+
+LOCAL_IMG_DIR = '<<choose local directoryname to download the images to>>'
+assert LOCAL_IMG_DIR != '<< choose a local directoryname to download the images to >>', 'Please provide a local directory name'
+DATASET_SIZE = len(output_images)
+
+image_subset = np.random.choice(output_images,DATASET_SIZE, replace = False)
+
+for img in image_subset:
+    target_fname = os.path.join(
+        LOCAL_IMG_DIR, img.uri.split('/')[-1])
+        if not os.path.isfile(target_fname):
+            !aws s3 cp {img.uri} {target_fname}
+
+
+N_SHOW = 5
+
+human_labeled_subset = [img for img in image_subset if img.human]
+auto_labeled_subset = [img for img in image_subset if not img.human]
+
+fig, axes = plt.subplots(N_SHOW,3,figsize=(9,2*N_SHOW),facecolor = "white", dpi=100)
+fig.suptitle("Human-labeled examples",fontsize=24)
+axes[0,0].set_title("Worker labels". fontsize=14)
+axes[0,1].set_title("consolidated label". fontsize=14)
+axes[0,2].set_title("True label". fontsize=14)
+for row,img in enumerate(np.random.choice(human_labeled_subset,size=N_SHOW)):
+    img.download(LOCAL_IMG_DIR)
+    img.plot_worker_bbs(axes[row,0])
+    img.plot_consolidated_bbs(axes[row,1])
+    img.plot_gt_bbs(axes[row,2])
+if auto_labeled_subset:
+    fig,axes = plt.subplots(N_SHOW,2,figsize(6,2*N_SHOW),facecolor= "white",dpi=100)
+    fig.suptitle("Auto-labeled examples",fontsize=24)
+    axes[0,0].set_title("Auto-label",fontsize=14)
+    axes[0,1].set_title("True-label",fontsize=14)
+    for row,img in enumerate(np.random.choice(auto_labeled_subset,size=N_SHOW)):
+    img.download(LOCAL_IMG_DIR)
+    img.plot_consolidated_bbs(axes[row,0])
+    img.plot_gt_bbs(axes[row,1])
+else:
+    print("No images were auto-labeled")
+
+
+N_SHOW = 10
+
+h_img_mious = [(img,img.compute_iou_bb()) for img in human_labeled]
+a_img_mious = [(img,img.compute_iou_bb() for img in autolabeled)]
+h_img_mious.sort(key = lambda x: x[1], reverse =True)
+a_img_mious.sort(key = lambda x: x[1], reverse =True)
+
+h_img_confs = [(img,img.compute_img_confidence()) for img in human_labeled]
+a_img_confs = [(img,img.compute_img_confidence()) for img in human_labeled]
+h_img_confs.sort(key = lambda x: x[1], reverse = True)
+a_img_confs.sort(key = lambda x: x[1], reverse = True)
+
+rows_per_page = 5
+column_per_page = 5
+n_per_page = rows_per_page * columns_per_page
+
+def title_page(title):
+    plt.figure(figsize=(10,10),facecolor-"white",dpi=100)
+    plt.text(.1,.5,s=title,fontsize=20)
+    plt.axis("off")
+    pdf.savefig()
+    plt.close()
+
+
+def page_loop(miou,axes,worker=False):
+    for i,row in enumerate(axes):
+        for j,ax in enumerate(row):
+            img_idx = n_per_page * page + rows_per_page * i + j
+
+            if img_idx >= min(N_SHOW,len(mious)):
+                return
+
+            img,miou = mious[img_idx]
+            img.download(LOCAL_IMG_DIR)
+            if worker:
+                img.plot_worker_bbs(ax, img_kwargs={"aspect": "auto"},box_kwargs={"lw":0.5})
+            else:
+                img.plot_gt_bbs(ax,img_kwargs={"aspect":"auto"},box_kwargs={"edgecolor":"C2","lw":0.5})
+                img.plot_consolidated_bbs(ax,img_kwargs = {"aspect":"auto"}, box_kwargs={"edgecolor":"C1","lw",:0.5})
+
+mode_metrics = (("mIoU", (("Worker", h_img_mious),("Consolidated human",h_img_mious),("Auto",a_img_mious))),
+            "confidence",
+            (("Worker",h_img_confs), ("Consolidated human",h_img_confs),("Auto",a_img_confs)),
+            )
+
+for mode,labels_metrics in mode_metrics:
+    pdfname = f"ground-truth-od-{mode}.pdf"
+    with PdfPages(pdfname) as pdf:
+        title_page("Images labeled by Sagemaker Ground Truth \n" f"and sorted by {mode}")
+        print()

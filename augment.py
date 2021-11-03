@@ -26,7 +26,7 @@ returns:
     testing_data: an instance of augmented images (testing) of search_name
 '''
 
-        split_folders.ratio('Images', output="Data", seed=1337, ratio=((0.8, 0.2)))
+        split_folders.ratio('Images', output="Augmented_Images", seed=1337, ratio=((0.8, 0.2)))
 
         # augmentation techniques for training data stored as an ImageDataGenerator object
         self.training = ImageDataGenerator(rotation_range=40,
@@ -44,9 +44,12 @@ returns:
         # data will be in "/Images/Data/class/index.jpg"
 
 
+
+
+
     def training_exploration(folder_path):
         train_dir = folder_path # image folder
-
+        # train_dir = 'DATA/train' # image folder
         # get the list of jpegs from sub image class folders
         normal_imgs = [fn for fn in os.listdir(f'{train_dir}/NORMAL') if fn.endswith('.jpeg')]
         pneumo_imgs = [fn for fn in os.listdir(f'{train_dir}/PNEUMONIA') if fn.endswith('.jpeg')]

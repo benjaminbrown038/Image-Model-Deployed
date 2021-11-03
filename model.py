@@ -27,17 +27,18 @@ returns:
 '''
 
         # grabbing images from training folder of each class and augmenting
-        training_directory = '/Images/Data/train/' + search_name + '/'
+        training_directory = 'Augmented_Images/train/' + search_name + '/'
         training_batch_size = len(os.listdir(training_directory))
-        self.training_data = training.flow_from_directory('/Images/Data/train/' + search_name,
+        self.training_data = training.flow_from_directory('Augmented_Images/train/' + search_name,
                                                           target_size = (150,150),
                                                           batch_size = training_batch_size,
                                                           shuffle = False,
                                                           class_mode = 'binary')
 
         # endup creating batch size to the number of images in the folder
+        training_directory = 'Augmented_Images/train/' + search_name + '/'
         testing_batch_size = len(os.listdir(testing_directory))
-        self.testing_data = testing.flow_from_directory('/Images/Data/test/' + search_name,
+        self.testing_data = testing.flow_from_directory('Augmented_Images/test/' + search_name,
                                                         target_size = (150,150),
                                                         batch_size= testing_batch_size,
                                                         shuffle = False,

@@ -2,6 +2,12 @@
 Create virtual environment with anaconda in project directory
     Before running code: conda create --prefix ./venv
                          conda activate ./venv
+
+    After edits:
+                        conda deactivate
+                        git add .
+                        git commit -m "message"
+                        git push origin main                         
 '''
 # pause after scrolling results page
 import time

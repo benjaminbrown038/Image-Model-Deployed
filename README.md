@@ -36,7 +36,9 @@ The top image classification models that can be used for Pre-Trained Models
 - EfficientNet
 The ```model.py``` folder holds the model architecture for the CNN. Keras is used for the Sequential model along with imported functions Conv2d, MaxPool2D, and Flatten layers to create the model for prediction.
 
-The ```bucket.py``` folder requires the user to navigate to the aws website and create a login. Then using the login, create an access key and a secret key. The website will prompt a .csv to pop up with these values stored. Open the file and change format of values to be in rows and column. Please see this tutorial:https://realpython.com/python-csv/. So the values are stored using commas as:
+The ```bucket.py``` folder requires the user to navigate to the aws website and create a login. This file follows the tutorial: https://gist.github.com/Andrew9255/d70c03e2a5531841daa1691aced3abbd#file-sagemaker_demo-py-L139.
+Then using the login, create an access key and a secret key. The website will prompt a .csv to pop up with these values stored.
+Open the file and change format of values to be in rows and column. Please see this tutorial:https://realpython.com/python-csv/. So the values are stored using commas as:
 column1name(access_key_variable),column2name(secret_key_variable)
 row1name(access_key_value),row2name(secret_key_value)
 

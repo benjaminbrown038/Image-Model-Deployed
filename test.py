@@ -1,18 +1,17 @@
 '''
-Libraries used in this python application:
-    selenium
-    requests
-    time
-    io
-    base64
-    PIL
-    webdriver_manager
-    os
-    tensorflow
-    keras
-    splitfolders
-    matplotlib
-    numpy
+Importing libraries that are needed for this project:
+        time
+        selenium
+        requests
+        io
+        os
+        PIL
+        base64
+        webdriver_manager
+        numpy
+        keras
+        matplotlib
+        splitfolders
 '''
 import time
 import selenium
@@ -21,174 +20,130 @@ from selenium.webdriver.common.keys import Keys
 import requests
 import os
 import PIL
+from PIL import Image
 import io
 import base64
 import webdriver_manager
 from webdriver_manager import chrome
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-from tensorflow.keras.preprocessing import image
-import matplotlib.pyplot as plt
+from keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 import splitfolders
-from tensorflow.keras.image.prepocess import ImageDataGenerator
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
-from tensorflow.keras.optimizers import SGD,RMSprop, Optimizer, Nadam, Ftrl, Adamax, Adam, Adagrad, Adadelta
-from tensorflow.keras.losses import BinaryCrossentropy
-from tensorflow.keras.metrics import Accuracy
+import matplotlib.pyplot as plt
+'''
+Collecting image data of cats and dogs from google
+    for image classification
 '''
 
-'''
 class Data:
-'''
 
 '''
-    def __init__(self, search_name):
+~ Comments are for why the code is there~
+Using Selenium within this script to collect image data for image classification model.
+    parameters:
+        search_name: <string> search_name will be search query
+        length: <integer> (out of 100) what percentage of the results to scrape (1 will be 40 images, 100 will be __ images)
+'''
+    def __init__(self,search_name, length):
         self.wd = webdriver.Chrome(ChromeDriverManager.install())
-        search_url = "https://www.google.com/search?q={q}&sxsrf=ALeKk02zAb9RaNNb-qSenTEJh1i2XX480w:1613489053802&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjChJqP2-7uAhVyTTABHdX0CPoQ_AUoAXoECAcQAw&biw=767&bih=841"
-        self.wd.get(search_url.format(q=search_name))
-'''
+        search_url = "https://www.google.com/search?q={}&sxsrf=ALeKk02zAb9RaNNb-qSenTEJh1i2XX480w:1613489053802&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjChJqP2-7uAhVyTTABHdX0CPoQ_AUoAXoECAcQAw&biw=767&bih=841"
+        self.wd.get(search_url.format(search_name))
 
-'''
     def scrape_and_save(self,search_name):
-        body = wd.find_element(By.TAG_NAME,"body")
-        for i in range(10):
+        body = self.wd.find_element(By.TAG_NAME,"body")
+        for i in range(length):
             body.send_keys(Keys.PAGE_DOWN)
             time.sleep(.75)
             main = wd.find_elements(By.CLASS_NAME,"rg_i.Q4LuWd")
             links = [main[i].get_attribute('src') for i in range(len(main))]
-        self.wd.quit()
-        images = []
-        for image in links:
-            if type(image) == str:
-                if image[0:4] == 'data':
-                    new_image = image.replace("data:image/jpeg;base64,","")
-                    if new_image[-2:] != '==':
-                        new_image = new_image + '=='
-                        new_image = (Image.open(io.BytesIO(base64.b64decode(new_image)))).resize(150,150)
-                        if new_image.mode != 'RGB':
-                            new_image.convert('RGB')
-                        images.append(new_image)
-                    else:
-                        new_image = (Image.open(io.BytesIO(base64.b64decode(new_image)))).resize(150,150)
-                        if new_image.mode != 'RGB':
-                            new_image.convert('RGB')
-                if image[0:4] == 'http':
-                    new_image = requests.get(image)
-                    new_image = (Image.open(io.BytesIO(new_image.content))).resize(150,150)
-                    images.append(new_image)
-        os.makedirs('Images/',exist_ok = True)
-        os.makedirs('Images' + search_name , exist_ok = True)
-        index = 0
-        for image in images:
-            image.save('Images/' + search_name + '/' + str(index) + '.jpeg')
-            index += 1
-
+            self.wd.quit()
+            images=[]
+            for image in links:
 '''
-Run this for each class so when creating the augmented images in the Augmented_Images folder,
-    it creats data for both classes.
+Data conditions:    1. string
+                        - If it has 'data' in front
+                            - remove noise
+                            - If it has byte format at end '=='
+                                - If image is in RGB mode
+                            - If it isn't in byte format
+                        - If it has 'http' in front
+                            - convert to rgb
 '''
-    def augment(search_name):
+                if type(image) == str:
+                    if image[0:4] == 'data':
+                        new_image = image.replace("data:image.jpeg;base64,","")
+                        if new_image[-2:] != '==':
+                            new_image = new_image + '=='
+                            new_image = (Image.open(io.BytesIO(base64.b64decode(new_image)))).resize(150,150)
+                            if new_image.mode != 'RGB':
+                                new_image = new_image.convert('RGB')
+                                images.append(new_images)
+                        else:
+                            new_image = (Image.open(base64.b64decode(io.BytesIO(new_image)))).resize(150,150)
+                            if new_image.mode != 'RGB':
+                                new_image = new_image.convert('RGB')
+                                images.append(new_images)
+                    if image[0:4]  == 'http':
+                        new_image = requests.get(new_image)
+                        new_image = (Image.open(io.BytesIO(new_image.content))).resize(150,150)
+                        if new_image.mode != 'RGB':
+                            new_image = new_image.convert('RGB')
+                            images.append(new_images)
+            index = 0
+            os.makedirs('Images', exists_ok= True)
+            os.makedirs('Images/training', exists_ok= True)
+            os.makedirs('Images/training/' + search_name, exists_ok = True)
+            for image in images:
+                image.save('Images/training' + search_name + '/' + str(index) + '.jpeg')
+                index += 1
+            split_folders.ratio('Images', output="Augmented_Images", seed=1337, ratio=((0.8, 0.2)))
+            training_file = 'Augmented_Images/train/'
+            validation_file = 'Augmented_Images/val/'
+            files = [training_file,validation_file]
 
-        splitfolders.ratio('Images', output = "Augmented_Images", seed = 1337, ratio = ((0.8,0.2)))
+class Augment:
 
-        training = ImageDataGenerator(rotation_range = 40,
+    def __init__(self):
+
+        self.training = ImageDataGenerator(rotation_range = 40,
                                             width_shift_range = 0.2,
                                             height_shift_range = 0.2,
                                             rescale = 1./255,
                                             shear_range = 0.2,
                                             zoom_range = 0.2,
-                                            horizontal_flip=True,
+                                            horizontal_flip = True,
                                             fill_mode = 'nearest')
 
-        testing = ImageDataGenerator(
-                                        rescale = 1./255)
+        self.validation = ImageDataGenerator(rescale = 1./ 255)
 
-    def data_exploration(search_name):
-        '''
-        Take samples from augmented image and compare against regular image
-        '''
-        norm_dir = '/Images/dogs'
-        aug_dir = '/Augmented_Images/'
-        # f before directory string
-        normal_imgs = [fn for fn in os.listdir(f'{train_dir}') if fn.endswith('.jpeg')]
-        aug_imgs = [fn for fn in os.listdir(f'{train_dir}') if fn.endswith('.jpeg')]
+        obj = [self.training,self.validation]
+        return data
 
-        select_norm = np.random.choice(normal_imgs,3,replace = False)
-        select_augs = np.random.choice(aug_imgs,3,replace = False)
+    def augmentation(self,obj,files):
 
-        fig = plt.figure(figsize=(8,6))
-        for i in range(6):
-            if i < 3:
-                fp = f'{train_dir}/normal
-                label = 'normal'
-            else:
-                fp = f'{train_dir}/normal/{select_norm[i]}'
-                label = 'augmented'
-                ax = fig.add_subplot(2,3,i+1)
-        fn = image.load_img(fp,target_size = (100,100),color_mode = 'grayscale')
-        plt.imshow(fn,cmap='Greys_r')
-        plt.title(label)
-        plt.axis('off')
-        plt.show()
+        training = obj[0]
+        validation = obj[1]
 
-# creating data for model (needs multiple)
-    def create_data():
-        training_directory = "Data/train/"
-        training_batch_size = len(os.listdir(training_directory))
-        training_data = flow_from_directory(training_directory,
-                                                    target_size = (150,150),
-                                                    shuffle = True,
-                                                    class_mode = 'binary')
+        training_folder = files[0]
+        validation_folder = files[1]
 
-        testing_directory = "Data/test/"
-        testing_batch_size = len(os.listdir(testing_directory))
-        testing_data = flow_from_directory(testing_directory,
-                                                target_size = (150,150),
-                                                shuffle = True,
-                                                class_mode = 'binary' )
+        training_folder_size = len(os.listdir(training_folder))
+        validation_folder_size = len(os.listdir(validation_folder))
 
-        x_train = training_data[0][0]
-        x_train /= 255
-        x_train = np.rollaxis(x_train,3,1)
-        y_train = training_data[0][1]
-        training = [x_train,y_train]
+        training_data = training.flow_from_directory(training_folder,
+                                    batch_size = training_folder_size,
+                                    target_size = (150,150),
+                                    shuffle = True,
+                                    class_mode = 'binary')
 
-        x_test = testing_data[0][0]
-        x_test /= 255
-        x_test = np.rollaxis(x_test,3,1)
-        y_test = testing_data[0][1]
-        testing = [x_test,y_test]
+        validation_data = validation.flow_from_directory(validation_folder,
+                                        batch_size = validation_folder_size,
+                                        target_size = (150,150),
+                                        shuffle = True,
+                                        class_mode = 'binary')
 
-        data = [training,testing]
-
+        data = [training_data,validation_data]
+        return data
 
     def model():
-        # hyperparameter subject to change to optimize accuracy of model
-        model = Sequential()
-        model.add(Conv2D())
-        model.add(MaxPooling2D())
-        model.add(Conv2D())
-        model.add(MaxPooling2D())
-        model.add(Flatten())
-        model.add(Dense())
-        model.add(Dense())
-        # hyperparameters
-        opt = SGD(learning_rate = .01)
-        loss = BinaryCrossentropy()
-        ac = Accuracy()
-
-        model.compile(loss = loss, optimizer = opt, accuracy = ac)
-
-        model.fit(data[0][0],
-                data[0][1],
-                validation_data = (data[1][0],data[1][1]),
-                epochs = 25,
-                verbose = 2)
-
-
-
-
-
-        if __name__ == "__main__":

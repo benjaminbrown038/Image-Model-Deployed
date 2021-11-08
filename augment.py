@@ -52,15 +52,15 @@ returns:
 
     def aug(*classes):
         for label in classes:
-            search_name = 'dogs'
-            training_directory = "Data/train/" + label
+
+            training_directory = "Data/train/"
             training_batch_size = len(os.listdir(training_directory))
             training_data = flow_from_directory(training_directory,
                                                                   target_size = (150,150),
                                                                   batch_size = training_batch_size,
                                                                   shuffle = False,
                                                                   class_mode = 'binary')
-            validation_directory = 'Data/val/' + label
+            validation_directory = 'Data/val/'
             validation_batch_size = len(os.listdir(validation_directory))
             validation_data = validation.flow_from_directory(validation_directory,
                                                                 target_size = (150,150),

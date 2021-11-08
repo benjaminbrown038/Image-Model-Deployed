@@ -7,7 +7,7 @@ Create virtual environment with anaconda in project directory
                         conda deactivate
                         git add .
                         git commit -m "message"
-                        git push origin main                         
+                        git push origin main
 '''
 # pause after scrolling results page
 import time
@@ -33,7 +33,6 @@ import webdriver_manager
 from webdriver_manager import chrome
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-
 # create class called Data
 class Data:
 

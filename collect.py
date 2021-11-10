@@ -122,5 +122,6 @@ returns:
             # saving images according to search_name in search_name directory
             i.save('Images/'+ search_name + '/' + str(index) + '.jpeg')
             index += 1
+        return images
 
     if __name__ == "__main__":

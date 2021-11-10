@@ -28,8 +28,16 @@ returns:
         self.validation = ImageDataGenerator(
             scale_width = 1/255)
 
-    def training_exploration(folder_path):
-        train_dir = folder_path
+    def training_exploration(folder_path,images):
+        train_dir = (os.getcwd()) + 'Augmented_Images/train/'
+        for filename in os.listdir(train_dir):
+            images.append
+            select_norm = np.random.choice(normal_imgs, 3, replace = False)
+            select_pneu = np.random.choice(pneumo_imgs, 3, replace = False)
+
+
+
+
         normal_imgs = [fn for fn in os.listdir(f'{train_dir}/NORMAL') if fn.endswith('.jpeg')]
         pneumo_imgs = [fn for fn in os.listdir(f'{train_dir}/PNEUMONIA') if fn.endswith('.jpeg')]
         select_norm = np.random.choice(normal_imgs, 3, replace = False)

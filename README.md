@@ -1,6 +1,6 @@
 # Sharpest Minds Project
 
-# Find good tutorial for image classification of model (asking right questions)
+
 
 This is a personal project that I have been working on to integrate some data collection other than traditional datasets provided by machine learning libraries.
 

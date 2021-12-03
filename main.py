@@ -1,13 +1,9 @@
 '''
-Create virtual environment with anaconda in project directory
-    Before running code: conda create --prefix ./venv
-                         conda activate ./venv
+    Using Selenium chromedriver in local directory will fetch google images
+    for binary classification model and saves them in made folder
 
-    After edits:
-                        conda deactivate
-                        git add .
-                        git commit -m "message"
-                        git push origin main
+parameters: <string> will be the search query for google images
+returns:
 '''
 # pause after scrolling results page
 import time
@@ -38,9 +34,10 @@ class Data:
 
 '''
     Using Selenium chromedriver in local directory will fetch google images for binary classification model
-parameters:
-    search_name: <string> will be the search query for google images
+
+parameters: <string> will be the search query for google images
 returns:
+
 '''
 
     # initializer for class with input search name
@@ -50,7 +47,6 @@ returns:
         self.wd = webdriver.Chrome(ChromeDriverManager().install())
         search_url = "https://www.google.com/search?q={q}&sxsrf=ALeKk02zAb9RaNNb-qSenTEJh1i2XX480w:1613489053802&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjChJqP2-7uAhVyTTABHdX0CPoQ_AUoAXoECAcQAw&biw=767&bih=841"
         # specific for requesting images
-
         self.wd.get(search_url.format(q=search_name))
 
 '''
@@ -59,7 +55,6 @@ parameters:
     search_name: <string> will be used for the creation of folders and naming and saving of files within that folder
 returns:
 '''
-
     # get images links, remove noise, decode cleaned data, size and open image, save image, create folder, save images from search to folder
     def scrape_and_save(self,search_name):
         body = self.wd.find_element(By.TAG_NAME,"body")
@@ -72,11 +67,9 @@ returns:
             # getting image links (ASCII data communication) stored as base64 and http urls from img (html) tag with src holding the path (url)
             #print(type(main))
             links = [main[i].get_attribute('src') for i in range(len(main))]
-
         # shut down web page
         self.wd.quit()
         images = []
-        #
         for image in links:
             # going through image links which stored as strings
             if type(image) == str:

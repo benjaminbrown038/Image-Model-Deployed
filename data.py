@@ -5,8 +5,10 @@ import os
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import main
 
 class Augment():
+
     def __init__(self,search_name):
 '''
     Using ImageDataGenerator object's functionality to access training and validation images to augment images in folder
@@ -84,3 +86,5 @@ returns:
             x_val /= 255
             x_val = np.rollaxis(x_val,3,1)
             y_val = validation_data[0][1]
+
+    if __name__ == "__main__":

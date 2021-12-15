@@ -1,3 +1,11 @@
+'''
+    Using ImageDataGenerator object's functionality to access training and validation images to augment images in folder
+parameters:
+    search_name: <string> this will be the class of the picture.
+returns:
+    training_data: an instance of augmented images (training) of search_name
+    validation_data: an instance of augmented images (validation) of search_name
+'''
 from keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 import split_folders
@@ -7,17 +15,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import main
 
-class Augment():
+class Augment:
 
     def __init__(self,search_name):
-'''
-    Using ImageDataGenerator object's functionality to access training and validation images to augment images in folder
-parameters:
-    search_name: <string> this will be the class of the picture.
-returns:
-    training_data: an instance of augmented images (training) of search_name
-    validation_data: an instance of augmented images (validation) of search_name
-'''
         split_folders.ratio('Images', output="Augmented_Images", seed=1337, ratio=((0.8, 0.2)))
         self.training = ImageDataGenerator(rotation_range=40,
             width_shift_range=0.2,
@@ -36,10 +36,6 @@ returns:
             images.append
             select_norm = np.random.choice(normal_imgs, 3, replace = False)
             select_pneu = np.random.choice(pneumo_imgs, 3, replace = False)
-
-
-
-
         normal_imgs = [fn for fn in os.listdir(f'{train_dir}/NORMAL') if fn.endswith('.jpeg')]
         pneumo_imgs = [fn for fn in os.listdir(f'{train_dir}/PNEUMONIA') if fn.endswith('.jpeg')]
         select_norm = np.random.choice(normal_imgs, 3, replace = False)

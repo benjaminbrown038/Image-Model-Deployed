@@ -118,3 +118,4 @@ returns:
         return images
 
     if __name__ == "__main__":
+        main()

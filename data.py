@@ -84,3 +84,4 @@ class Augment:
             y_val = validation_data[0][1]
 
     if __name__ == "__main__":
+        main()

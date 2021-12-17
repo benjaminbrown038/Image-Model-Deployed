@@ -105,3 +105,5 @@ returns: testing images and testing labels
             validation_data =(x_test,y_test),
             epochs=100,
             verbose=2,
+    if __name__ == "__main__":
+        main()

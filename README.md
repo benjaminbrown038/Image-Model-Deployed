@@ -18,11 +18,13 @@ The ```data.py``` file:
 Set up:
 
 1. If not already installed:
-  - Install anaconda using this link: https://www.anaconda.com/products/individual
+https://www.anaconda.com/products/individual
 2. Create the virtual environment.
-  - ```conda create -n envname python=3.8 anaconda ```
-3. ``` git clone https://www.github.com/benjaminbrown038/Sharpest-Minds-Project.git```
-4. Activate it using ```conda activate envname```
+Run: ```conda create -n envname python=3.8 anaconda ```
+3. Clone
+Run: ``` git clone https://www.github.com/benjaminbrown038/Sharpest-Minds-Project.git```
+4. Activate:
+```conda activate envname```
 
 Notes:
 

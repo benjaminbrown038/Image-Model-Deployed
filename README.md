@@ -1,16 +1,20 @@
 # Sharpest Minds Project
 
 Goal:
-```main.py```
+The ```main.py``` file:
+
 1. Collect images of cats and dogs
-2. extract faces from Images
-```data.py```
+2. Extract faces from Images
+
+The ```data.py``` file:
+
 1. Create augmented images
 2. save 80% of augmented images to train folder
 3. save 20% of augmented images to test folder
 
 
 Set up:
+
 1. Install anaconda using this link: https://www.anaconda.com/products/individual.
 2. Create the virtual environment with anaconda and the version of python that was downloaded. The ```conda create -n envname python=3.8 anaconda ``` command will accomplish this, with 'envname' being anything of the user's choosing.
 3. Use ``` git clone``` command to clone the project locally.

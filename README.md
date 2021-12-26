@@ -1,10 +1,14 @@
 # Sharpest Minds Project
 
 Goal:
+
+
 The ```main.py``` file:
 
-1. Collect images of cats and dogs
-2. Extract faces from Images
+1. Scrape images of cats
+2. Scrape images of dogs
+3. Extract faces from Images
+4. Save images in folder specific to ```cat``` or ```dog``` inside ```Images``` folder
 
 The ```data.py``` file:
 
@@ -15,30 +19,33 @@ The ```data.py``` file:
 
 Set up:
 
-1. Install anaconda using this link: https://www.anaconda.com/products/individual.
-2. Create the virtual environment with anaconda and the version of python that was downloaded. The ```conda create -n envname python=3.8 anaconda ``` command will accomplish this, with 'envname' being anything of the user's choosing.
-3. Use ``` git clone``` command to clone the project locally.
+1. If not already installed:
+
+  - Install anaconda using this link: https://www.anaconda.com/products/individual
+
+
+2. Create the virtual environment.
+
+  - ```conda create -n envname python=3.8 anaconda ```
+
+
+3. ``` git clone https://www.github.com/benjaminbrown038/Sharpest-Minds-Project.git```
+
+
 4. Activate it using ```conda activate envname```
 
-```main.py```
-This file will gather images from Google of the user's choosing.
-Next, removing unnecessary information from the string retrieved from Google and decoding the string retrieved from Google search.
-It will then create training and testing folders and store the final result (.jpeg) in the folder.
 
-Must install chrome driver in order to run selenium with chrome webdriver.
-Chromedrivers can be found at https://chromedriver.chromium.org/downloads. Pick the version that supports your chrome browser version.
-The steps to know your specific browser version: https://help.zenplanner.com/hc/en-us/articles/204253654-How-to-Find-Your-Internet-Browser-Version-Number-Google-Chrome.
+Notes:
 
-```data.py```
-This file uses ```ImageDataGenerator``` function from keras for augmentation techniques.
 
-```model.py```
-Holds the architecture for the cnn.
-The model is trained on the gathered data, cleaned, and augmented data within the folders.
+  - Must install chrome driver in order to run selenium with chrome webdriver.
+
+  - Chromedrivers can be found at https://chromedriver.chromium.org/downloads.
 
 
 References:
-https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html.
+
+  - https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html.
 
 Future work:
 - Integrating files to depend on each other

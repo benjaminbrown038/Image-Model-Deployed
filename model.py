@@ -1,6 +1,6 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
-from tensorflow.keras.optimizers import SGD, RMSprop, Optimizer, Nadam, Ftrl, Adamax, Adam, Adagrad, Adadelta
+from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.losses import BinaryCrossentropy
 from tensorflow.keras.metrics import Accuracy
 from tensorflow.keras.applications.vgg16 import VGG16

@@ -1,4 +1,3 @@
-
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 from tensorflow.keras.optimizers import SGD, RMSprop, Optimizer, Nadam, Ftrl, Adamax, Adam, Adagrad, Adadelta
@@ -8,13 +7,9 @@ from tensorflow.keras.applications.vgg16 import VGG16
 
 opt = ['SGD', 'RMSprop', 'Optimizer', 'Nadam', 'Ftrl', 'Adamax', 'Adam', 'Adagrad', 'Adadelta']
 
-
 '''
 Reference for this architecture: https://github.com/girishkuniyal/Cat-Dog-CNN-Classifier
 '''
-# create Model class
-#class Model():
-    def aug(self,search_name):
 
 '''
 functions:
@@ -27,22 +22,16 @@ returns:
     testing_data: object containing testing data (x and y)
 '''
 
-        # grabbing images from training folder of each class and augmenting
-training_directory = 'Augmented_Images/train/' + search_name + '/'
-        
-training_batch_size = len(os.listdir(training_directory))
-        
+training_directory = 'Augmented_Images/train/' + search_name + '/'        
+training_batch_size = len(os.listdir(training_directory))    
 training_data = training.flow_from_directory('Augmented_Images/train/' + search_name,
                                                           target_size = (150,150),
                                                           batch_size = training_batch_size,
                                                           shuffle = False,
                                                           class_mode = 'binary')
 
- 
 training_directory = 'Augmented_Images/train/' + search_name + '/'
-
 testing_batch_size = len(os.listdir(testing_directory))
-
 testing_data = testing.flow_from_directory('Augmented_Images/test/' + search_name,
                                                         target_size = (150,150),
                                                         batch_size= testing_batch_size,
@@ -50,7 +39,7 @@ testing_data = testing.flow_from_directory('Augmented_Images/test/' + search_nam
                                                         class_mode = 'binary')
 
 '''
-Accessing examples from (training) data, scaling image data 0 to 1, creating a dimension on image data, accessing labels (training)
+Accessing examples from (training) data, scaling image data 0 - 1, creating a dimension on image data, accessing labels (training)
 
 parameters:
 
@@ -62,10 +51,8 @@ x_train /= 255
 x_train = np.rollaxis(x_train,3,1)
 y_train = self.training_data[0][1]
 
-
-
 '''
-Accessing examples from (testing) data, scaling image data 0 to 1, creating a dimension on image data, accessing labels (testing)
+Accessing examples from (testing) data, scaling image data 0 - 1, creating a dimension on image data, accessing labels (testing)
 
 parameters:
 
@@ -78,10 +65,14 @@ x_test /= 255
 x_test = np.rollaxis(x_test,3,1)
 y_test = self.testing_data[0][1]
 
+'''
+Model
+'''
 
 classifier = Sequential()
+
 classifier.add(Conv2D(32,(3,3),input_shape=(64,64,3),activation = 'relu'))
-classifier.add(MaxPooling2D(pool_size=(2,2),strides=2)) #if stride not given it equal to pool filter size
+classifier.add(MaxPooling2D(pool_size=(2,2),strides=2)) 
 classifier.add(Conv2D(32,(3,3),activation = 'relu'))
 classifier.add(MaxPooling2D(pool_size=(2,2),strides=2))
 classifier.add(Flatten())

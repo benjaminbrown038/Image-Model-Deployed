@@ -5,8 +5,6 @@ from tensorflow.keras.losses import BinaryCrossentropy
 from tensorflow.keras.metrics import Accuracy
 from tensorflow.keras.applications.vgg16 import VGG16
 
-opt = ['SGD', 'RMSprop', 'Optimizer', 'Nadam', 'Ftrl', 'Adamax', 'Adam', 'Adagrad', 'Adadelta']
-
 '''
 Reference for this architecture: https://github.com/girishkuniyal/Cat-Dog-CNN-Classifier
 '''
@@ -41,8 +39,6 @@ testing_data = testing.flow_from_directory('Augmented_Images/test/' + search_nam
 '''
 Accessing examples from (training) data, scaling image data 0 - 1, creating a dimension on image data, accessing labels (training)
 
-parameters:
-
 returns: training images and training labels
 '''
 
@@ -52,18 +48,18 @@ x_train = np.rollaxis(x_train,3,1)
 y_train = self.training_data[0][1]
 
 '''
-Accessing examples from (testing) data, scaling image data 0 - 1, creating a dimension on image data, accessing labels (testing)
-
-parameters:
+1. Accessing examples from (testing) data, 
+2. Scaling image data 0 - 1
+3. Creating a dimension on image data
+4. Accessing labels (testing)
 
 returns: testing images and testing labels
-
 '''
 
-x_test = self.testing_data[0][0]
+x_test = testing_data[0][0]
 x_test /= 255
 x_test = np.rollaxis(x_test,3,1)
-y_test = self.testing_data[0][1]
+y_test = testing_data[0][1]
 
 '''
 Model
@@ -79,14 +75,27 @@ classifier.add(Flatten())
 classifier.add(Dense(units=128,activation='relu'))
 classifier.add(Dense(units=1,activation='sigmoid'))
 
+'''
+1. Optimizer of model
+2. Loss function for CNN
+3. Metric used: Accuracy
+'''
+
 opt = SGD(learning_rate=0.01)
 loss = BinaryCrossentropy()
 ac = Accuracy()
-        
+ 
+'''
+Compile above functions for model architecture: more accurate predictions.
+'''
 classifier.compile(loss=loss, 
                    optimizer=opt,
                    metrics=ac)
-        
+'''
+Set parameters for fitting data to model
+'''
+
+
 classifier.fit(x_train,
                y_train,
                validation_data = (x_test,y_test),

@@ -28,18 +28,22 @@ returns:
 '''
 
         # grabbing images from training folder of each class and augmenting
-        training_directory = 'Augmented_Images/train/' + search_name + '/'
-        training_batch_size = len(os.listdir(training_directory))
-        self.training_data = training.flow_from_directory('Augmented_Images/train/' + search_name,
+training_directory = 'Augmented_Images/train/' + search_name + '/'
+        
+training_batch_size = len(os.listdir(training_directory))
+        
+training_data = training.flow_from_directory('Augmented_Images/train/' + search_name,
                                                           target_size = (150,150),
                                                           batch_size = training_batch_size,
                                                           shuffle = False,
                                                           class_mode = 'binary')
 
-        # endup creating batch size to the number of images in the folder
-        training_directory = 'Augmented_Images/train/' + search_name + '/'
-        testing_batch_size = len(os.listdir(testing_directory))
-        self.testing_data = testing.flow_from_directory('Augmented_Images/test/' + search_name,
+ 
+training_directory = 'Augmented_Images/train/' + search_name + '/'
+
+testing_batch_size = len(os.listdir(testing_directory))
+
+testing_data = testing.flow_from_directory('Augmented_Images/test/' + search_name,
                                                         target_size = (150,150),
                                                         batch_size= testing_batch_size,
                                                         shuffle = False,
@@ -51,59 +55,52 @@ Accessing examples from (training) data, scaling image data 0 to 1, creating a d
 parameters:
 
 returns: training images and training labels
-
 '''
 
-        # x training data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
-        x_train = self.training_data[0][0]
-        # training data split from 0 to 1 for activation functions
-        x_train /= 255
-        # change shape (add axis) to x training for model
-        x_train = np.rollaxis(x_train,3,1)
-        # y training data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
-        y_train = self.training_data[0][1]
+x_train = self.training_data[0][0]
+x_train /= 255
+x_train = np.rollaxis(x_train,3,1)
+y_train = self.training_data[0][1]
 
-        return x_train
-        return y_train
 
 
 '''
-accessing examples from (testing) data, scaling image data 0 to 1, creating a dimension on image data, accessing labels (testing)
+Accessing examples from (testing) data, scaling image data 0 to 1, creating a dimension on image data, accessing labels (testing)
 
 parameters:
 
 returns: testing images and testing labels
 
 '''
-        # x testing data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
-        x_test = self.testing_data[0][0]
-        # scale values in tx testing from 0 to 1 for activation functions in model
-        x_test /= 255
-        # change shape (add axis) to x testing data for model
-        x_test = np.rollaxis(x_test,3,1)
-        # y testing data after applying .flow_from_directory from ImageDataGenerator class in keras.image.preprocess
-        y_test = self.testing_data[0][1]
 
-        return x_test
-        return y_test
+x_test = self.testing_data[0][0]
+x_test /= 255
+x_test = np.rollaxis(x_test,3,1)
+y_test = self.testing_data[0][1]
 
-    #def model(filters,):
-        classifier = Sequential()
-        # filters = 32
-        classifier.add(Conv2D(32,(3,3),input_shape=(64,64,3),activation = 'relu'))
-        classifier.add(MaxPooling2D(pool_size=(2,2),strides=2)) #if stride not given it equal to pool filter size
-        classifier.add(Conv2D(32,(3,3),activation = 'relu'))
-        classifier.add(MaxPooling2D(pool_size=(2,2),strides=2))
-        classifier.add(Flatten())
-        classifier.add(Dense(units=128,activation='relu'))
-        classifier.add(Dense(units=1,activation='sigmoid'))
-        opt = SGD(learning_rate=0.01)
-        loss = BinaryCrossentropy()
-        ac = Accuracy()
-        classifier.compile(loss=loss, optimizer=opt,metrics=ac)
-        classifier.fit(x_train,y_train,
-            validation_data =(x_test,y_test),
-            epochs=100,
-            verbose=2,
-    if __name__ == "__main__":
-        main()
+
+classifier = Sequential()
+classifier.add(Conv2D(32,(3,3),input_shape=(64,64,3),activation = 'relu'))
+classifier.add(MaxPooling2D(pool_size=(2,2),strides=2)) #if stride not given it equal to pool filter size
+classifier.add(Conv2D(32,(3,3),activation = 'relu'))
+classifier.add(MaxPooling2D(pool_size=(2,2),strides=2))
+classifier.add(Flatten())
+classifier.add(Dense(units=128,activation='relu'))
+classifier.add(Dense(units=1,activation='sigmoid'))
+
+opt = SGD(learning_rate=0.01)
+loss = BinaryCrossentropy()
+ac = Accuracy()
+        
+classifier.compile(loss=loss, 
+                   optimizer=opt,
+                   metrics=ac)
+        
+classifier.fit(x_train,
+               y_train,
+               validation_data = (x_test,y_test),
+               epochs=100,
+               verbose=2)
+
+#    if __name__ == "__main__":
+#        main()

@@ -11,8 +11,13 @@ Reference for this architecture: https://github.com/girishkuniyal/Cat-Dog-CNN-Cl
 
 '''
 functions:
-    flow_from_directory: function in ImageDataGenerator class to augment, set image size, batch_size, classification type
-    creating training_data from
+    1. flow_from_directory: function in ImageDataGenerator class to:
+        - augment 
+        - set image size
+        - batch_size
+        - classification type
+        - creating training_data
+        
 parameters:
     search_name: <string> this will be the class of the picture and label the image for classification
 returns:

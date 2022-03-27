@@ -114,9 +114,9 @@ index = 0
 for i in images:
     # saving images according to search_name in search_name directory
     # detecting faces and saving it as an image
-    face = cv.CascadeClassifier(i)
-    face = face.detectMultiScale(face)
-    face.save('Images/'+ search_name + '/' + str(index) + '.jpeg')
+    #face = cv.CascadeClassifier(i)
+    #face = face.detectMultiScale(face)
+    i.save('Images/'+ search_name + '/' + str(index) + '.jpeg')
     index += 1
 #return images
 

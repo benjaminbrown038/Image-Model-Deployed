@@ -2,6 +2,7 @@ selenium
 requests
 Pillow
 webdriver-manager
-split-folders
+split_folders
 tensorflow
 opencv-python
+SciPy

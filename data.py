@@ -8,10 +8,9 @@ returns:
 '''
 
 
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 import splitfolders
-import os
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -21,7 +20,7 @@ from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.losses import BinaryCrossentropy
 from tensorflow.keras.metrics import Accuracy
 from tensorflow.keras.applications.vgg16 import VGG16
-import os
+
 
 splitfolders.ratio('Images', output="Augmented_Images", seed=1337, ratio=((0.8, 0.2)))
 
@@ -42,10 +41,10 @@ training = ImageDataGenerator(rotation_range=40,
 training_directory = 'Augmented_Images/train/'
 training_batch_size = len(os.listdir(training_directory))
 training_data = training.flow_from_directory(training_directory,
-                                                                target_size = (150,150),
-                                                                batch_size= training_batch_size,
-                                                                shuffle = False,
-                                                                class_mode = 'binary')
+                                                target_size = (150,150),
+                                                batch_size= training_batch_size,
+                                                shuffle = False,
+                                                class_mode = 'binary')
 
 # training data variables from keras augmented training data object
 x_train = training_data[0][0]
@@ -72,7 +71,6 @@ x_val = validation_data[0][0]
 x_val /= 255
 x_val = np.rollaxis(x_val,3,1)
 y_val = validation_data[0][1]
-
 
 '''
 Model Building
@@ -116,7 +114,7 @@ Data Fitting to Model
 #               epochs=100,
 #               verbose=2)
 
-print(training_data[2][1].shape)
+
 
 
 #if __name__ == "__main__":

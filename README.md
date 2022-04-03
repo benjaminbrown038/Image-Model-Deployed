@@ -35,6 +35,8 @@ References:
 
   - https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html.
 
+  https://machinelearningmastery.com/how-to-develop-a-convolutional-neural-network-to-classify-photos-of-dogs-and-cats/
+
 Future work:
 
 - Integrating files to depend on each other

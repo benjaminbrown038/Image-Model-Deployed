@@ -6,3 +6,5 @@ split_folders
 tensorflow
 opencv-python
 SciPy
+keras
+Image

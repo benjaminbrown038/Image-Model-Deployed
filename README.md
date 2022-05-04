@@ -25,10 +25,14 @@ Run: ```conda create -n envname python=3.8 anaconda ```
 Run: ``` git clone https://www.github.com/benjaminbrown038/Sharpest-Minds-Project.git```
 4. Activate:
 ```conda activate envname```
+5. Install packages:
+```pip install requirements.txt ```
+6. Run program:
+```python3 main.py```
+
+This will create a folder with the class of images. 
 
 Notes:
-
-  - Must install chrome driver in order to run selenium with chrome webdriver.
   - Chromedrivers can be found at https://chromedriver.chromium.org/downloads.
 
 References:
@@ -37,9 +41,3 @@ References:
 
   https://machinelearningmastery.com/how-to-develop-a-convolutional-neural-network-to-classify-photos-of-dogs-and-cats/
 
-Future work:
-
-- Integrating files to depend on each other
-- Deploying model and data to cloud using AWS and lambda function (Find a couple of reliable tutorials)
-- Running application from terminal using ```python data.py``` while passing classes as parameters
-- Project requires downloading AWS access and secret key in a .csv file and saved in the project directory

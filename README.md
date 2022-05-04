@@ -1,20 +1,5 @@
 # Sharpest Minds Project
 
-Goal:
-
-The ```main.py``` file:
-
-1. Scrape images of cats
-2. Scrape images of dogs
-3. Extract faces from Images
-4. Save images in folder specific to ```cat``` or ```dog``` inside ```Images``` folder
-
-The ```data.py``` file:
-
-1. Create augmented images
-2. save 80% of augmented images to train folder
-3. save 20% of augmented images to test folder
-
 Set up:
 
 1. If not already installed:
@@ -41,3 +26,20 @@ References:
 
   https://machinelearningmastery.com/how-to-develop-a-convolutional-neural-network-to-classify-photos-of-dogs-and-cats/
 
+
+
+
+Goal:
+
+The ```main.py``` file:
+
+1. Scrape images of cats
+2. Scrape images of dogs
+3. Extract faces from Images
+4. Save images in folder specific to ```cat``` or ```dog``` inside ```Images``` folder
+
+The ```data.py``` file:
+
+1. Create augmented images
+2. save 80% of augmented images to train folder
+3. save 20% of augmented images to test folder

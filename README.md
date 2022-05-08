@@ -24,7 +24,9 @@ References:
 
   - https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html.
 
-  https://machinelearningmastery.com/how-to-develop-a-convolutional-neural-network-to-classify-photos-of-dogs-and-cats/
+  -  https://machinelearningmastery.com/how-to-develop-a-convolutional-neural-network-to-classify-photos-of-dogs-and-cats/
+  
+  - https://blog.jovian.ai/image-classification-between-dog-and-cat-using-resnet-in-pytorch-fdd9fdfac20a
 
 
 

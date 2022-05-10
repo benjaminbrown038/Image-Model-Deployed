@@ -1,36 +1,5 @@
 # Sharpest Minds Project
 
-Set up:
-
-1. If not already installed:
-https://www.anaconda.com/products/individual
-2. Create the virtual environment.
-Run: ```conda create -n envname python=3.8 anaconda ```
-3. Clone
-Run: ``` git clone https://www.github.com/benjaminbrown038/Sharpest-Minds-Project.git```
-4. Activate:
-```conda activate envname```
-5. Install packages:
-```pip install requirements.txt ```
-6. Run program:
-```python3 main.py```
-
-This will create a folder with the class of images. 
-
-Notes:
-  - Chromedrivers can be found at https://chromedriver.chromium.org/downloads.
-
-References:
-
-  - https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html.
-
-  -  https://machinelearningmastery.com/how-to-develop-a-convolutional-neural-network-to-classify-photos-of-dogs-and-cats/
-  
-  - https://blog.jovian.ai/image-classification-between-dog-and-cat-using-resnet-in-pytorch-fdd9fdfac20a
-
-
-
-
 Goal:
 
 The ```main.py``` file:
@@ -45,3 +14,32 @@ The ```data.py``` file:
 1. Create augmented images
 2. save 80% of augmented images to train folder
 3. save 20% of augmented images to test folder
+
+Set up:
+
+1. If not already installed:
+https://www.anaconda.com/products/individual
+2. Create the virtual environment.
+Run: ```conda create -n envname python=3.8 anaconda ```
+3. Clone
+Run: ``` git clone https://www.github.com/benjaminbrown038/Sharpest-Minds-Project.git```
+4. Activate:
+```conda activate envname```
+
+Notes:
+
+  - Must install chrome driver in order to run selenium with chrome webdriver.
+  - Chromedrivers can be found at https://chromedriver.chromium.org/downloads.
+
+References:
+
+  - https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html.
+
+  https://machinelearningmastery.com/how-to-develop-a-convolutional-neural-network-to-classify-photos-of-dogs-and-cats/
+
+Future work:
+
+- Integrating files to depend on each other
+- Deploying model and data to cloud using AWS and lambda function (Find a couple of reliable tutorials)
+- Running application from terminal using ```python data.py``` while passing classes as parameters
+- Project requires downloading AWS access and secret key in a .csv file and saved in the project directory

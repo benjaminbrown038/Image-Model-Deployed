@@ -6,12 +6,12 @@ splitfolders.ratio("Images", output="Augmented",seed=1337, ratio=(.8, .1, .1), g
 import torchvision.transforms as T
 # training augmentation types: horizontal flip, rotation, crop, normalize
 # 12 augmentation strategies
-train_transform = T.Compose(T.GaussianBlur(),
+train_transform = T.Compose(T.GaussianBlur((3,3)),
                         T.ColorJitter(),
-                        T.RandomHorizontalFLip(),
-                        T.RandomRotation(),
-                        T.RandomVerticalFlip(),
-                        T.GaussianBlur(),
+                        T.RandomHorizontalFLip(0.5),
+                        T.RandomRotation(0.5),
+                        T.RandomVerticalFlip(0.5),
+                        T.GaussianBlur((3,3),
                         T.LinearTransformation(),
                         T.adjust_brightness(),
                         T.adjust_contrast(),

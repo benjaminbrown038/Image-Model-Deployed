@@ -39,10 +39,30 @@ from torch.nn import functional
                             
 input_shape = (150,150)
                             
-model = sequential(
-        conv2d(8,16, (3,3),(2,2),(1,1)),
-        maxpool2d((3,3),(2,2)),
-        conv2d(16,32,(3,3),(2,2),(1,1)),
-        maxpool2d((3,3),(2,2)),
-        conv2d(32,64,),
-        maxpool2d())
+model = nn.Sequential(
+            
+            nn.Conv2d(3, 32, kernel_size = 3, padding = 1),
+            nn.ReLU(),
+            nn.Conv2d(32,64, kernel_size = 3, stride = 1, padding = 1),
+            nn.ReLU(),
+            nn.MaxPool2d(2,2),
+        
+            nn.Conv2d(64, 128, kernel_size = 3, stride = 1, padding = 1),
+            nn.ReLU(),
+            nn.Conv2d(128 ,128, kernel_size = 3, stride = 1, padding = 1),
+            nn.ReLU(),
+            nn.MaxPool2d(2,2),
+            
+            nn.Conv2d(128, 256, kernel_size = 3, stride = 1, padding = 1),
+            nn.ReLU(),
+            nn.Conv2d(256,256, kernel_size = 3, stride = 1, padding = 1),
+            nn.ReLU(),
+            nn.MaxPool2d(2,2),
+            
+            nn.Flatten(),
+            nn.Linear(82944,1024),
+            nn.ReLU(),
+            nn.Linear(1024, 512),
+            nn.ReLU(),
+            nn.Linear(512,10)
+        )

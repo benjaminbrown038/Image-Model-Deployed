@@ -36,6 +36,7 @@ References:
   - https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html.
 
   https://machinelearningmastery.com/how-to-develop-a-convolutional-neural-network-to-classify-photos-of-dogs-and-cats/
+  - MaxPool2D application tutorial: https://www.tutorialspoint.com/how-to-apply-a-2d-max-pooling-in-pytorch
 
 Future work:
 

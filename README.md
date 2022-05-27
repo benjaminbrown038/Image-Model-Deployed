@@ -37,6 +37,7 @@ References:
 
   https://machinelearningmastery.com/how-to-develop-a-convolutional-neural-network-to-classify-photos-of-dogs-and-cats/
   - MaxPool2D application tutorial: https://www.tutorialspoint.com/how-to-apply-a-2d-max-pooling-in-pytorch
+  - Fitting a model in PyTorch: https://andrewpwheeler.com/2021/05/24/fitting-a-pytorch-model/
 
 Future work:
 

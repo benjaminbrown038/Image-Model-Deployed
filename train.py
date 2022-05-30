@@ -13,8 +13,7 @@ test = torchvision.datasets.CIFAR10(root='/data',test = True, download = True, t
 test_loader = torch.utils.data.DataLoader(test, batch_size = batch_size, shuffle = True, num_workers = 2)
 #classes 
 classes = ('plane','car','bird','cat','deer','dog','frog','horse','ship','truck')
-                            
-input_shape = (150,150)                          
+                                                     
 model = nn.Sequential(
             
             nn.Conv2d(3, 32, kernel_size = 3, padding = 1),
@@ -43,6 +42,6 @@ model = nn.Sequential(
             nn.Linear(512,10)
         )
 
-optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+optimizer = optim.SGD(lr=0.001)
 loss = nn.CrossEntropyLoss()
 

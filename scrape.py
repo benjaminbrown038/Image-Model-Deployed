@@ -1,6 +1,3 @@
-#yaml 
-#cmake
-
 '''
     Using Selenium chromedriver in local directory will fetch google images
     for binary classification model and saves them in made folder
@@ -33,11 +30,9 @@ from webdriver_manager import chrome
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import cv2 as cv
-# create class called Data
-
 
 '''
-    Using Selenium chromedriver in local directory will fetch google images for binary classification model
+Using Selenium chromedriver in local directory will fetch google images for binary classification model
 
 parameters: <string> will be the search query for google images
 returns:
@@ -121,7 +116,3 @@ for i in images:
     #face = face.detectMultiScale(face)
     i.save('Images/'+ search_name + '/' + str(index) + '.jpeg')
     index += 1
-#return images
-
-#if __name__ == "__main__":#
-    #main()

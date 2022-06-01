@@ -41,6 +41,7 @@ model = nn.Sequential(
             nn.ReLU(),
             nn.Linear(512,10)
         )
+print(model)
 
 optimizer = optim.SGD(lr=0.001)
 loss = nn.CrossEntropyLoss()

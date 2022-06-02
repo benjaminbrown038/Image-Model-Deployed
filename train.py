@@ -1,8 +1,5 @@
-import splitfolders
 import torch
 import torchvision
-from torch import sequential
-from torch.nn import conv2d, MaxPool2d, functional
 from torch import optim
 
 # data 

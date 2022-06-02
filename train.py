@@ -10,7 +10,8 @@ test = torchvision.datasets.CIFAR10(root='/data',test = True, download = True, t
 test_loader = torch.utils.data.DataLoader(test, batch_size = batch_size, shuffle = True, num_workers = 2)
 #classes 
 classes = ('plane','car','bird','cat','deer','dog','frog','horse','ship','truck')
-                                                     
+
+# model cnn architecture                                      
 model = nn.Sequential(
             
             nn.Conv2d(3, 32, kernel_size = 3, padding = 1),
@@ -40,9 +41,11 @@ model = nn.Sequential(
         )
 print(model)
 
+# hyperparameters (loss and optimizer)
 optimizer = optim.SGD(lr=0.001)
 loss = nn.CrossEntropyLoss()
 
+# training model function
 def train_loop(dataloader, model, loss_fn, optimizer):
     size = len(dataloader.dataset)
     for batch, (X, y) in enumerate(dataloader):
@@ -58,7 +61,8 @@ def train_loop(dataloader, model, loss_fn, optimizer):
         if batch % 100 == 0:
             loss, current = loss.item(), batch * len(X)   
             print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
-         
+
+# testing model function            
 def test_loop(dataloader, model, loss_fn):
     size = len(dataloader.dataset)
     num_batches = len(dataloader)
@@ -74,9 +78,7 @@ def test_loop(dataloader, model, loss_fn):
     correct /= size
     print(f"Test Error: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
     
-loss_fn = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
-
+# testing and traing data 
 epochs = 10
 for t in range(epochs):
     print(f"Epoch {t+1}\n-------------------------------")

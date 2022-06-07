@@ -1,5 +1,5 @@
 // This file should contain a few features
-// 1. An resizing or augmentation you do prior to training/testing
+// 1. An resizing or augmentation you do prior to training/testing // Augmenting Will include resizing images. 
 // 2. The labels of targets
 // 3. The path to the model
 // 4. The URL to the model

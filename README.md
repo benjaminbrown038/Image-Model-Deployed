@@ -49,3 +49,30 @@ Future work:
 
 
 ## Deployment (under construction)
+
+Objectives for the deployment of the model are as follow:
+- Make the API interface with FastAPI
+   - Input: an image file the user puts in manually
+   - Output: a JSON with classification scores for each class
+
+- Write a predictor class that does the following:
+   1. Downloads the model and interacts with the config.yaml file to do this (so you will have to write PATHES!)
+   2. Takes the image that is uploaded and does some array building
+   3. Classifies the image
+- Create a main.py or app.py for the main API
+- The main or app script for the API runs on `univcorn main:app --reload`
+- EXTRA: be able to send a cURL POST request to an endpoint and receive an answer
+
+- Docker: create a Dockerfile that has instructions about creating the environment. This should include:
+  - Python runtime
+  - Copies the main script with your model
+  - Copies the app config.yaml
+  - Runs a update for git 
+  - Runs an install for libglib2.0-0
+  - Runs a pip install for the github repo to be on the Docker image
+  - Exposes the port for Docker
+  - Define the entrypoint for the host and the port to the FastAPI
+
+  You should be able to run:
+  `docker build -t <NAME OF IMAGE> .` and get your model response when you map to
+  `docker run -p <PORT NUMBER>:<PORT NUMBER> <NAME OF IMAGE> .`

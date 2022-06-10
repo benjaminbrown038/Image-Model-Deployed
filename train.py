@@ -39,7 +39,7 @@ model = nn.Sequential(
             nn.ReLU(),
             nn.Linear(512,10)
         )
-print(model)
+
 
 # hyperparameters (loss and optimizer)
 optimizer = optim.SGD(lr=0.001)

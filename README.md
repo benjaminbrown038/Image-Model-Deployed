@@ -56,7 +56,7 @@ Objectives for the deployment of the model are as follow:
    - Output: a JSON with classification scores for each class
 
 - Write a predictor class that does the following:
-   1. Downloads the model and interacts with the config.yaml file to do this (so you will have to write PATHES!)
+   1. Downloads the model and interacts with the config.yaml file to do this (so you will have to write PATHS!)
    2. Takes the image that is uploaded and does some array building
    3. Classifies the image
 - Create a main.py or app.py for the main API

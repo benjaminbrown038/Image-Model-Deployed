@@ -15,6 +15,7 @@ model:
   script_path: /Image_Scraping/train.py
 
 optimizer:
+  script_path: /Image_Scraping/train.py
   lr: .001
 
 train:
@@ -31,3 +32,4 @@ evaluate:
   data_augmentation:
     ToTensor(): True
   
+# Reference: https://medium.com/analytics-vidhya/how-to-write-configuration-files-in-your-machine-learning-project-47bc840acc19

@@ -1,6 +1,33 @@
+# Kevin 
 // This file should contain a few features
 // 1. An resizing or augmentation you do prior to training/testing // Augmenting Will include resizing images. 
 // 2. The labels of targets
 // 3. The path to the model
 // 4. The URL to the model
 // 5. The SHAhash for where the model is stored (this can be found on Github)
+
+
+dataset:
+  # check 
+  script_path: /Image_Scraping/train.py
+      
+model:
+  script_path: /Image_Scraping/train.py
+
+optimizer:
+  lr: .001
+
+train:
+  script_path: /Image_Scraping/train.py
+  batch_size: 64
+  epochs: 1000
+  data_augmentation:
+    ToTensor(): True
+
+evaluate:
+  script_path: /Image_Scraping/train.py
+  batch_size: 64
+  epochs: 1000
+  data_augmentation:
+    ToTensor(): True
+  

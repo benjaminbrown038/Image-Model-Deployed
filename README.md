@@ -63,15 +63,7 @@ Objectives for the deployment of the model are as follow:
 - The main script for the API runs on `univcorn main:app --reload`
 - EXTRA: be able to send a cURL POST request to an endpoint and receive an answer
 
-- Docker: create a Dockerfile that has instructions about creating the environment. This should include:
-  - Python runtime
-  - Copies the main script with your model
-  - Copies the app config.yaml
-  - Runs a update for git 
-  - Runs an install for libglib2.0-0
-  - Runs a pip install for the github repo to be on the Docker image
-  - Exposes the port for Docker
-  - Define the entrypoint for the host and the port to the FastAPI
+
 
   You should be able to run:
   `docker build -t <NAME OF IMAGE> .` and get your model response when you map to

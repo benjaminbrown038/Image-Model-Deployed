@@ -59,8 +59,8 @@ Objectives for the deployment of the model are as follow:
    1. Downloads the model and interacts with the config.yaml file to do this (so you will have to write PATHS!)
    2. Takes the image that is uploaded and does some array building
    3. Classifies the image
-- Create a main.py or app.py for the main API
-- The main or app script for the API runs on `univcorn main:app --reload`
+- Create a main.py for the main API
+- The main script for the API runs on `univcorn main:app --reload`
 - EXTRA: be able to send a cURL POST request to an endpoint and receive an answer
 
 - Docker: create a Dockerfile that has instructions about creating the environment. This should include:

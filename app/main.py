@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile 
 
 # Can fill in here or migrate other files
 
@@ -17,18 +17,11 @@ app = FastAPI()
 async def root():
     return {"message": "Hello World"}
 
-class Image:
-    {
-        file: *.jpeg 
-    }
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile):
+    return {"filename": file.filename}    
 
-
-@app.post()
-    try:
-        Image == image 
-    except:
-        return ("Error")
-
+'''
 class User(BaseModel):
     id: int
     name = 'John Doe'
@@ -62,3 +55,4 @@ print(user.dict())
     'name': 'John Doe',
 }
 """
+'''

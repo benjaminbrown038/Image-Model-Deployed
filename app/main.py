@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel
+from fastapi import FastAPI
 
 # Can fill in here or migrate other files
 
@@ -10,20 +11,24 @@ from pydantic import BaseModel
 # We also want to create a class that defines our input and the data types that come with that class. 
 # The rest is really up to you. But these are good practices to have when creating an API
 
-# bring in image for classification
+app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
 class Image:
     {
         file: *.jpeg 
     }
 
-# Using fastapi to send post request (sending data to server) for image data 
+
 @app.post()
     try:
         Image == image 
     except:
         return ("Error")
 
-# Using Pydantic to get user data and store in class 
 class User(BaseModel):
     id: int
     name = 'John Doe'

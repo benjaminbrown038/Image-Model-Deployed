@@ -31,5 +31,8 @@ evaluate:
   epochs: 1000
   data_augmentation:
     ToTensor(): True
+
+labels: ['plane','car','bird','cat','deer','dog','frog','horse','ship','truck']
+
   
 # Reference: https://medium.com/analytics-vidhya/how-to-write-configuration-files-in-your-machine-learning-project-47bc840acc19

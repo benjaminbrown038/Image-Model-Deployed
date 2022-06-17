@@ -6,33 +6,22 @@
 // 4. The URL to the model
 // 5. The SHAhash for where the model is stored (this can be found on Github)
 
+#INITIAL SETTINGS
+data_directory: ../data/
+data_name: cifar10.data
+data_augmentation:
+  ToTensor(): True
+target_name: ['plane','car','bird','cat','deer','dog','frog','horse','ship','truck']
+test_size: 0.2
+model_directory: ../models/
+model_name: model.h5
 
-dataset:
-  # check 
-  script_path: /Image_Scraping/train.py
-      
-model:
-  script_path: /Image_Scraping/train.py
 
+#CNN parameters
+epochs: 20
+metric: 
+loss:
 optimizer:
-  script_path: /Image_Scraping/train.py
-  lr: .001
+  lr: 0.001
 
-train:
-  script_path: /Image_Scraping/train.py
-  batch_size: 64
-  epochs: 1000
-  data_augmentation:
-    ToTensor(): True
-
-evaluate:
-  script_path: /Image_Scraping/train.py
-  batch_size: 64
-  epochs: 1000
-  data_augmentation:
-    ToTensor(): True
-
-labels: ['plane','car','bird','cat','deer','dog','frog','horse','ship','truck']
-
-  
 # Reference: https://medium.com/analytics-vidhya/how-to-write-configuration-files-in-your-machine-learning-project-47bc840acc19

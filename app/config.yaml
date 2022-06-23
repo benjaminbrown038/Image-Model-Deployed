@@ -20,9 +20,9 @@ model_name: model.h5
 
 #CNN parameters
 epochs: 20
-metric: 
-loss:
-optimizer:
+# metric: 
+loss: CrossEntropyLoss()
+optimizer: SGD
   lr: 0.001
 
 # Reference: https://medium.com/analytics-vidhya/how-to-write-configuration-files-in-your-machine-learning-project-47bc840acc19

@@ -17,9 +17,16 @@ app = FastAPI()
 async def root():
     return {"message": "Hello World"}
 
+try: 
+    # passing file 
+except:
+    # unless not jpeg
+
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile):
     return {"filename": file.filename}    
+
+
 
 '''
 class User(BaseModel):

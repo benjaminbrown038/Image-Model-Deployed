@@ -13,6 +13,7 @@ from fastapi import FastAPI, File, UploadFile
 
 app = FastAPI()
 
+# RETURN METHOD
 @app.get("/")
 def root():
     return {"message": "Hello World"}
@@ -21,10 +22,12 @@ try:
     # passing file 
 except:
     # unless not jpeg
-
+# PSOTING METHOD
 @app.post("/uploadfile/")
 def create_upload_file(file: UploadFile):
     return {"filename": file.filename}    
+
+
 
 
 

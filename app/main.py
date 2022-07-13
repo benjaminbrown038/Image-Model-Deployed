@@ -10,7 +10,7 @@ from fastapi import FastAPI, File, UploadFile
 # Ideally, we want 1 route in our API (maybe call it /predict/ or something)
 # We also want to create a:
 # 'Class user()' that defines our input and the data types that come with that class. 
-# The rest is really up to you. But these are good practices to have when creating an API
+# These are good practices to have when creating an API
 
 app = FastAPI()
 

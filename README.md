@@ -46,3 +46,25 @@ Future work:
 - Deploying model and data to cloud using AWS and lambda function (Find a couple of reliable tutorials)
 - Running application from terminal using ```python data.py``` while passing classes as parameters
 - Project requires downloading AWS access and secret key in a .csv file and saved in the project directory
+
+
+## Deployment (under construction)
+
+Objectives for the deployment of the model are as follow:
+- Make the API interface with FastAPI
+   - Input: an image file the user puts in manually
+   - Output: a JSON with classification scores for each class
+
+- Write a predictor class that does the following:
+   1. Downloads the model and interacts with the config.yaml file to do this (so you will have to write PATHS!)
+   2. Takes the image that is uploaded and does some array building
+   3. Classifies the image
+- Create a main.py for the main API
+- The main script for the API runs on `univcorn main:app --reload`
+- EXTRA: be able to send a cURL POST request to an endpoint and receive an answer
+
+
+
+  You should be able to run:
+  `docker build -t <NAME OF IMAGE> .` and get your model response when you map to
+  `docker run -p <PORT NUMBER>:<PORT NUMBER> <NAME OF IMAGE> .`

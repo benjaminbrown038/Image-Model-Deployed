@@ -1,3 +1,4 @@
+# since there is now deploy doler
 FROM python:3.6-slim
 COPY app/main.py /deploy/
 COPY app/config.yaml /deploy/

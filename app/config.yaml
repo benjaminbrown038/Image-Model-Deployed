@@ -1,0 +1,28 @@
+# Kevin 
+// This file should contain a few features
+// 1. An resizing or augmentation you do prior to training/testing // Augmenting Will include resizing images. 
+// 2. The labels of targets
+// 3. The path to the model
+// 4. The URL to the model
+// 5. The SHAhash for where the model is stored (this can be found on Github)
+
+#INITIAL SETTINGS
+# Get data saved into a folder for config folder to reference. 
+data_directory: ../data/
+data_name: cifar10.data
+data_augmentation:
+  ToTensor(): True
+target_name: ['plane','car','bird','cat','deer','dog','frog','horse','ship','truck']
+test_size: 0.2
+model_directory: ../models/
+model_name: model.h5
+
+
+#CNN parameters
+epochs: 20
+# metric: 
+loss: CrossEntropyLoss()
+optimizer: SGD
+  lr: 0.001
+
+# Reference: https://medium.com/analytics-vidhya/how-to-write-configuration-files-in-your-machine-learning-project-47bc840acc19
